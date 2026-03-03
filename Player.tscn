@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dxo43j4m0kq68"]
+
+[ext_resource type="Script" uid="uid://cuhebgvknjeur" path="res://PlayerController.gd" id="1_xhfnw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kpjcp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xhfnw"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0, 0, 1)
+grow_amount = -2.069
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhfnw"]
+material = SubResource("StandardMaterial3D_xhfnw")
+size = Vector3(1, 0.5, 0.6)
+
+[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("head")]
+script = ExtResource("1_xhfnw")
+head = NodePath("Head")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=607986907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_xhfnw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=888354271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_kpjcp")
+
+[node name="Head" type="Node3D" parent="." unique_id=800694193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Face" type="MeshInstance3D" parent="Head" unique_id=13010648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+mesh = SubResource("BoxMesh_xhfnw")
+
+[node name="Cam" type="Camera3D" parent="Head" unique_id=317463938]
