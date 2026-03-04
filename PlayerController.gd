@@ -35,7 +35,7 @@ func _input(event: InputEvent) -> void:
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, minXRot, maxXRot)
 
 func _physics_process(delta: float) -> void:
-	
+	light.visible = not environment.day
 	#Pause Region
 	#region
 	#Leave Captured Mouse Mode
