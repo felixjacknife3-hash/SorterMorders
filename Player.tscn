@@ -16,13 +16,18 @@ grow_amount = -2.069
 material = SubResource("StandardMaterial3D_xhfnw")
 size = Vector3(1, 0.5, 0.6)
 
-[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("head", "light")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_xhfnw"]
+radius = 0.4
+
+[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("head", "light", "shapeCast", "dragTo")]
 script = ExtResource("1_xhfnw")
 sprintSpeed = 7.0
 baseSpeed = 4.0
 sens = 1.5
 head = NodePath("Head")
-light = NodePath("Head/SpotLight3D")
+light = NodePath("Head/Light")
+shapeCast = NodePath("Head/DragDetector")
+dragTo = NodePath("Head/DragAt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=607986907]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -41,7 +46,14 @@ mesh = SubResource("BoxMesh_xhfnw")
 
 [node name="Cam" type="Camera3D" parent="Head" unique_id=317463938]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Head" unique_id=1571608150]
+[node name="Light" type="SpotLight3D" parent="Head" unique_id=1571608150]
 shadow_enabled = true
 spot_range = 20.0
 spot_angle = 20.0
+
+[node name="DragDetector" type="ShapeCast3D" parent="Head" unique_id=696554777]
+shape = SubResource("SphereShape3D_xhfnw")
+target_position = Vector3(0, 0, -4)
+
+[node name="DragAt" type="Marker3D" parent="Head" unique_id=190992176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)

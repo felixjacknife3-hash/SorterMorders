@@ -18,6 +18,9 @@ class_name Player
 @export var environment: TimedEnvironment
 @export_subgroup("Light")
 @export var light: SpotLight3D
+@export_subgroup("Drag")
+@export var shapeCast: ShapeCast3D
+@export var dragTo: Marker3D
 
 var speed: float = 3
 var jumps = 0
@@ -36,6 +39,15 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	light.visible = not environment.day
+	
+	for i in shapeCast.get_collision_count():
+		var collider = shapeCast.get_collider(i)
+		if collider is DraggableObject:
+			if Input.is_action_pressed("Drag"):
+				collider.global_position = dragTo.global_position
+			elif Input.is_action_just_released("Drag"):
+				applyPostDropVelocity(collider, 6, 1.5)
+	
 	#Pause Region
 	#region
 	#Leave Captured Mouse Mode
@@ -84,3 +96,8 @@ func _physics_process(delta: float) -> void:
 	#endregion
 	
 	move_and_slide()
+
+func applyPostDropVelocity(collider: DraggableObject, reapplyAmount: int, multi: float):
+	for i in range(reapplyAmount):
+		collider.linear_velocity = (collider.global_position - dragTo.global_position) * multi
+		await get_tree().create_timer(0.08).timeout
