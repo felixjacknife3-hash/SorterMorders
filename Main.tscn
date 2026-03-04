@@ -93,8 +93,9 @@ roughness = 0.0
 
 [node name="Main" type="Node3D" unique_id=1043340439]
 
-[node name="Player" parent="." unique_id=1751044688 instance=ExtResource("1_glv2v")]
+[node name="Player" parent="." unique_id=1751044688 node_paths=PackedStringArray("environment") instance=ExtResource("1_glv2v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.099999964, 0.1)
+environment = NodePath("../Environment")
 
 [node name="World" type="Node3D" parent="." unique_id=2110458245]
 

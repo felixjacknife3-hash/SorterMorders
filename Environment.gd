@@ -1,7 +1,7 @@
 extends Node3D
 class_name TimedEnvironment
 
-
+@export var day := true
 @export var dayLength: float = 2400
 @export var nightLength: float = 600
 @export_group("Light")
@@ -10,8 +10,6 @@ class_name TimedEnvironment
 
 var cycleLength: float
 var time := 0.0
-
-var day := true
 var animPlayed := false
 
 # Called when the node enters the scene tree for the first time.

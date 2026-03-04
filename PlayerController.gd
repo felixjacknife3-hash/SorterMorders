@@ -15,6 +15,9 @@ class_name Player
 @export_group("Nodes")
 @export_subgroup("3D")
 @export var head: Node3D
+@export var environment: TimedEnvironment
+@export_subgroup("Light")
+@export var light: SpotLight3D
 
 var speed: float = 3
 var jumps = 0
@@ -32,6 +35,7 @@ func _input(event: InputEvent) -> void:
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, minXRot, maxXRot)
 
 func _physics_process(delta: float) -> void:
+	
 	#Pause Region
 	#region
 	#Leave Captured Mouse Mode
