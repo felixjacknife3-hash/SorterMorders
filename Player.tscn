@@ -18,6 +18,9 @@ size = Vector3(1, 0.5, 0.6)
 
 [node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("head")]
 script = ExtResource("1_xhfnw")
+sprintSpeed = 7.0
+baseSpeed = 4.0
+sens = 1.5
 head = NodePath("Head")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=607986907]
@@ -36,3 +39,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
 mesh = SubResource("BoxMesh_xhfnw")
 
 [node name="Cam" type="Camera3D" parent="Head" unique_id=317463938]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Head" unique_id=1571608150]

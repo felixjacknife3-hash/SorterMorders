@@ -1,23 +1,98 @@
 [gd_scene format=3 uid="uid://d1nop2wgd6s5k"]
 
 [ext_resource type="PackedScene" uid="uid://dxo43j4m0kq68" path="res://Player.tscn" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://bxi71frbd4yc4" path="res://Environment.gd" id="2_uu6xs"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_glv2v"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="Gradient" id="Gradient_uu6xs"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.98)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0.49803922)
 
-[sub_resource type="Sky" id="Sky_uu6xs"]
-sky_material = SubResource("ProceduralSkyMaterial_glv2v")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r0du0"]
+noise_type = 2
+frequency = 1.0
+fractal_type = 2
+fractal_lacunarity = 3.0
+fractal_gain = 2.0
 
-[sub_resource type="Environment" id="Environment_r0du0"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cm0pq"]
+width = 4096
+height = 3072
+noise = SubResource("FastNoiseLite_r0du0")
+color_ramp = SubResource("Gradient_uu6xs")
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_fos0i"]
+rayleigh_color = Color(0.2578149, 0.3509908, 0.5306423, 1)
+turbidity = 200.0
+sun_disk_scale = 75.0
+ground_color = Color(0.075271405, 0.049214043, 0.022533428, 1)
+energy_multiplier = 2.0
+night_sky = SubResource("NoiseTexture2D_cm0pq")
+
+[sub_resource type="Sky" id="Sky_3dxm6"]
+sky_material = SubResource("PhysicalSkyMaterial_fos0i")
+
+[sub_resource type="Environment" id="Environment_lgr22"]
 background_mode = 2
-sky = SubResource("Sky_uu6xs")
+sky = SubResource("Sky_3dxm6")
 tonemap_mode = 2
+ssr_enabled = true
+ssr_fade_in = 0.026516626
+ssr_fade_out = 0.019914955
 ssao_enabled = true
+fog_enabled = true
+fog_sky_affect = 0.4
+
+[sub_resource type="Animation" id="Animation_uu6xs"]
+resource_name = "Day"
+length = 0.50000334
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Environment/DirectionalLight3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.80670726, -0.14224426, 0.09960048, 0.56486255, 0.5, 1, -0.80670726, 0.14224426, 0.09960048, 0.56486255)
+
+[sub_resource type="Animation" id="Animation_r0du0"]
+resource_name = "Night"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Environment/DirectionalLight3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.80670726, 0.14224426, 0.09960048, 0.56486255, 0.5, 1, 0.80670726, -0.14224426, 0.09960048, 0.56486255)
+
+[sub_resource type="Animation" id="Animation_cm0pq"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Environment/DirectionalLight3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.80670726, 0.14224426, 0.09960048, 0.56486255)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fos0i"]
+_data = {
+&"Day": SubResource("Animation_uu6xs"),
+&"Night": SubResource("Animation_r0du0"),
+&"RESET": SubResource("Animation_cm0pq")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_trn2v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu6xs"]
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
 
 [node name="Main" type="Node3D" unique_id=1043340439]
 
 [node name="Player" parent="." unique_id=1751044688 instance=ExtResource("1_glv2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.099999964, 0.1)
 
 [node name="World" type="Node3D" parent="." unique_id=2110458245]
 
@@ -28,11 +103,30 @@ use_collision = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(12, 1, 12)
 
-[node name="Environment" type="Node3D" parent="." unique_id=332120919]
+[node name="Environment" type="Node3D" parent="." unique_id=332120919 node_paths=PackedStringArray("sunLight", "animPlayer")]
+script = ExtResource("2_uu6xs")
+dayLength = 20.0
+nightLength = 10.0
+sunLight = NodePath("DirectionalLight3D")
+animPlayer = NodePath("SunAnims")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=395957835]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+transform = Transform3D(0.9396928, -0.34202006, 5.1643596e-08, -0.11697778, -0.32139367, 0.9396928, -0.32139376, -0.8830222, -0.34202006, 0, 0, 0)
+light_color = Color(0.42288277, 0.4228828, 0.4228828, 1)
+light_energy = 0.9
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
 shadow_enabled = true
+directional_shadow_mode = 1
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=997254388]
-environment = SubResource("Environment_r0du0")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=649817185]
+environment = SubResource("Environment_lgr22")
+
+[node name="SunAnims" type="AnimationPlayer" parent="Environment" unique_id=285628952]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_fos0i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=652237828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.8)
+mesh = SubResource("SphereMesh_trn2v")
+surface_material_override/0 = SubResource("StandardMaterial3D_uu6xs")

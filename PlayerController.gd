@@ -8,8 +8,10 @@ class_name Player
 @export_subgroup("Jumps")
 @export var jumpVel: float = 2
 @export var maxJumps: int = 2
-@export_subgroup("Sensitivity")
-@export var sens: float = 2.2
+@export_subgroup("Camera")
+@export var sens: float = 1.6
+@export var minXRot: float = -70
+@export var maxXRot: float = 80
 @export_group("Nodes")
 @export_subgroup("3D")
 @export var head: Node3D
@@ -27,7 +29,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and captured:
 		head.rotate_x(deg_to_rad(-event.relative.y * sens))
 		rotate_y(deg_to_rad(-event.relative.x * sens))
-		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -80, 80)
+		head.rotation_degrees.x = clamp(head.rotation_degrees.x, minXRot, maxXRot)
 
 func _physics_process(delta: float) -> void:
 	#Pause Region
@@ -60,7 +62,13 @@ func _physics_process(delta: float) -> void:
 	
 	#Movement Region
 	#region
-	# Get the input direction and handle the movement/deceleration.
+	#Run Logic
+	if Input.is_action_pressed("Run"):
+		speed = sprintSpeed
+	else:
+		speed = baseSpeed
+	
+	#Actual Movement Shit
 	var input_dir := Input.get_vector("A", "D", "W", "S")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
