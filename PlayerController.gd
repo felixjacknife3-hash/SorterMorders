@@ -30,6 +30,8 @@ func _input(event: InputEvent) -> void:
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -80, 80)
 
 func _physics_process(delta: float) -> void:
+	#Pause Region
+	#region
 	#Leave Captured Mouse Mode
 	if Input.is_action_just_pressed("Esc"):
 		if captured:
@@ -38,7 +40,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			captured = true
-		
+	#endregion
+	
 	#Jump Region
 	#region
 	#Set Double jump to 0 on touching ground
@@ -54,6 +57,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jumpVel
 		jumps += 1
 	#endregion
+	
 	#Movement Region
 	#region
 	# Get the input direction and handle the movement/deceleration.
@@ -66,5 +70,5 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 	#endregion
-
+	
 	move_and_slide()
