@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dprdp26acx3wq"
-path.s3tc="res://.godot/imported/SwordMat_Height.png-03c4b59ad1efb4e2e62fe4562e03a02b.s3tc.ctex"
+uid="uid://0jkd45k5di8l"
+path.s3tc="res://.godot/imported/SwordMat.png-3016c355ae0dcb18995d57640222d9eb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://SwordMat_Height.png"
-dest_files=["res://.godot/imported/SwordMat_Height.png-03c4b59ad1efb4e2e62fe4562e03a02b.s3tc.ctex"]
+source_file="res://Models/Sword/SwordMat.png"
+dest_files=["res://.godot/imported/SwordMat.png-3016c355ae0dcb18995d57640222d9eb.s3tc.ctex"]
 
 [params]
 

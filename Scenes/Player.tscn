@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dxo43j4m0kq68"]
 
-[ext_resource type="Script" uid="uid://cuhebgvknjeur" path="res://PlayerController.gd" id="1_xhfnw"]
-[ext_resource type="Script" uid="uid://b5xubk2yelrht" path="res://Dragger.gd" id="2_kpjcp"]
+[ext_resource type="Script" uid="uid://cuhebgvknjeur" path="res://Scripts/PlayerController.gd" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://b5xubk2yelrht" path="res://Scripts/Dragger.gd" id="2_kpjcp"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kne1u"]
 radius = 1.4

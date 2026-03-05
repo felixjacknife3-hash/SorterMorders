@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c121ywqgdfmfr"
-path="res://.godot/imported/SwordNoCol.glb-e53e4ecd909d48945a8ed561e01fbb80.scn"
+uid="uid://caqes7furuent"
+path="res://.godot/imported/Sword.glb-75e0900f80fd6d4a90b7229b12cbd82a.scn"
 
 [deps]
 
-source_file="res://SwordNoCol.glb"
-dest_files=["res://.godot/imported/SwordNoCol.glb-e53e4ecd909d48945a8ed561e01fbb80.scn"]
+source_file="res://Models/Sword/Sword.glb"
+dest_files=["res://.godot/imported/Sword.glb-75e0900f80fd6d4a90b7229b12cbd82a.scn"]
 
 [params]
 

@@ -1,10 +1,10 @@
 [gd_scene format=4 uid="uid://64m6rjuyxwmh"]
 
-[ext_resource type="Script" uid="uid://bc7mkcdfqgoml" path="res://Draggable.gd" id="1_tt53q"]
-[ext_resource type="Texture2D" uid="uid://0jkd45k5di8l" path="res://SwordMat.png" id="2_js3bo"]
-[ext_resource type="Texture2D" uid="uid://romj21ktsjy4" path="res://SwordMat_AO.png" id="3_3i866"]
-[ext_resource type="Texture2D" uid="uid://dprdp26acx3wq" path="res://SwordMat_Height.png" id="4_unms8"]
-[ext_resource type="Texture2D" uid="uid://ccq84xnwxsdcl" path="res://SwordMat_Normal.png" id="5_qklx0"]
+[ext_resource type="Script" uid="uid://bc7mkcdfqgoml" path="res://Scripts/Draggable.gd" id="1_tt53q"]
+[ext_resource type="Texture2D" uid="uid://0jkd45k5di8l" path="res://Models/Sword/SwordMat.png" id="2_js3bo"]
+[ext_resource type="Texture2D" uid="uid://romj21ktsjy4" path="res://Models/Sword/SwordMat_AO.png" id="3_3i866"]
+[ext_resource type="Texture2D" uid="uid://dprdp26acx3wq" path="res://Models/Sword/SwordMat_Height.png" id="4_unms8"]
+[ext_resource type="Texture2D" uid="uid://ccq84xnwxsdcl" path="res://Models/Sword/SwordMat_Normal.png" id="5_qklx0"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qb6ay"]
 points = PackedVector3Array(0.5688687, 0.11969499, 0.32027036, 0.5688687, -0.11969499, 0.32027036, 0.087758124, 0.08782631, -0.30141652, -0.5688687, 0.11969499, 0.32027036, 0.1806392, 0.10514319, 0.755702, 0.069827855, 0.04063256, 1.8341428, 0.069827855, -0.040655993, 1.8341428, 0.1806392, -0.10516663, 0.755702, -0.5688687, -0.11969499, 0.32027036, 0.087758124, -0.08784975, -0.30141652, -0.087869495, 0.08782631, -0.30141652, -0.069939226, 0.04063256, 1.8341428, -0.18075058, 0.10514319, 0.755702, -0.069939226, -0.040655993, 1.8341428, -0.18075058, -0.10516663, 0.755702, -0.087869495, -0.08784975, -0.30141652)
