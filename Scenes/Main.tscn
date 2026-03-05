@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bxi71frbd4yc4" path="res://Scripts/Environment.gd" id="2_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://boonuc8sqj4w7" path="res://Scenes/DragBox.tscn" id="3_v1gob"]
 [ext_resource type="PackedScene" uid="uid://64m6rjuyxwmh" path="res://Scenes/Sword.tscn" id="4_jw32o"]
-[ext_resource type="VoxelGIData" uid="uid://bla0kwimfcmr6" path="res://Scenes/VoxelGI.res" id="5_pbw6q"]
+[ext_resource type="VoxelGIData" uid="uid://bla0kwimfcmr6" path="res://Resources/VoxelGI.res" id="5_pbw6q"]
 
 [sub_resource type="Gradient" id="Gradient_uu6xs"]
 interpolation_mode = 1
