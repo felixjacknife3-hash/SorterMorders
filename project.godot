@@ -15,6 +15,14 @@ run/main_scene="uid://d1nop2wgd6s5k"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DragAndDropGroupHelper="*uid://dxgicaxx6dqcl"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/DragAndDrop3D/plugin.cfg")
+
 [input]
 
 W={

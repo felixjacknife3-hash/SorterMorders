@@ -9,6 +9,9 @@ size = Vector3(0.6, 1, 1)
 size = Vector3(0.6, 1, 1)
 
 [node name="DraggableObject" type="RigidBody3D" unique_id=141783747]
+freeze_mode = 1
+linear_damp = 1.0
+angular_damp = 1.0
 script = ExtResource("1_txr1q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=295390818]

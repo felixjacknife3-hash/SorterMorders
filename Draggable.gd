@@ -1,12 +1,8 @@
 extends RigidBody3D
 class_name DraggableObject
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _getMeshData() -> MeshInstance3D:
+	for child in get_children():
+		if not child is MeshInstance3D: break
+		return child
+	return null

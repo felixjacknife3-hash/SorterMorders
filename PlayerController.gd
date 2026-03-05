@@ -12,15 +12,21 @@ class_name Player
 @export var sens: float = 1.6
 @export var minXRot: float = -70
 @export var maxXRot: float = 80
+@export_subgroup("Drag")
+@export var strength := 200.0
+@export var damping := 3.0
+@export_group("Bools")
 @export_group("Nodes")
-@export_subgroup("3D")
+@export_subgroup("Misc 3D")
 @export var head: Node3D
 @export var environment: TimedEnvironment
-@export_subgroup("Light")
 @export var light: SpotLight3D
 @export_subgroup("Drag")
-@export var shapeCast: ShapeCast3D
+@export var ray: dragRay
 @export var dragTo: Marker3D
+@export_group("Resources")
+@export var shapeHeld: Shape3D
+@export var shapeUnHeld: Shape3D
 
 var speed: float = 3
 var jumps = 0
@@ -30,23 +36,22 @@ var captured: bool = true
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func _input(event: InputEvent) -> void:
-	#Head Movement Code
+func _input(event):
 	if event is InputEventMouseMotion and captured:
 		head.rotate_x(deg_to_rad(-event.relative.y * sens))
 		rotate_y(deg_to_rad(-event.relative.x * sens))
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, minXRot, maxXRot)
 
+func drag(collider: DraggableObject) -> void:
+	ray.shape = shapeHeld
+	var target := dragTo.global_position
+	var diff := target - collider.global_position
+	
+	collider.apply_central_force(diff * strength)
+	collider.linear_velocity *= (1.0 - damping * get_physics_process_delta_time())
+
 func _physics_process(delta: float) -> void:
 	light.visible = not environment.day
-	
-	for i in shapeCast.get_collision_count():
-		var collider = shapeCast.get_collider(i)
-		if collider is DraggableObject:
-			if Input.is_action_pressed("Drag"):
-				collider.global_position = dragTo.global_position
-			elif Input.is_action_just_released("Drag"):
-				applyPostDropVelocity(collider, 6, 1.5)
 	
 	#Pause Region
 	#region
@@ -96,8 +101,3 @@ func _physics_process(delta: float) -> void:
 	#endregion
 	
 	move_and_slide()
-
-func applyPostDropVelocity(collider: DraggableObject, reapplyAmount: int, multi: float):
-	for i in range(reapplyAmount):
-		collider.linear_velocity = (collider.global_position - dragTo.global_position) * multi
-		await get_tree().create_timer(0.08).timeout
