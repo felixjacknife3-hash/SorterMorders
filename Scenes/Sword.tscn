@@ -6,9 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dprdp26acx3wq" path="res://Models/Sword/SwordMat_Height.png" id="4_unms8"]
 [ext_resource type="Texture2D" uid="uid://ccq84xnwxsdcl" path="res://Models/Sword/SwordMat_Normal.png" id="5_qklx0"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qb6ay"]
-points = PackedVector3Array(0.5688687, 0.11969499, 0.32027036, 0.5688687, -0.11969499, 0.32027036, 0.087758124, 0.08782631, -0.30141652, -0.5688687, 0.11969499, 0.32027036, 0.1806392, 0.10514319, 0.755702, 0.069827855, 0.04063256, 1.8341428, 0.069827855, -0.040655993, 1.8341428, 0.1806392, -0.10516663, 0.755702, -0.5688687, -0.11969499, 0.32027036, 0.087758124, -0.08784975, -0.30141652, -0.087869495, 0.08782631, -0.30141652, -0.069939226, 0.04063256, 1.8341428, -0.18075058, 0.10514319, 0.755702, -0.069939226, -0.040655993, 1.8341428, -0.18075058, -0.10516663, 0.755702, -0.087869495, -0.08784975, -0.30141652)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svj78"]
 resource_name = "Material.001"
 cull_mode = 2
@@ -60,17 +57,29 @@ ao_texture = ExtResource("3_3i866")
 heightmap_enabled = true
 heightmap_texture = ExtResource("4_unms8")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sevgc"]
+radius = 0.2
+height = 2.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1amwk"]
+radius = 0.10595703
+height = 0.99902344
+
 [node name="Sword" type="RigidBody3D" unique_id=1451926071]
 script = ExtResource("1_tt53q")
 metadata/_custom_type_script = "uid://bc7mkcdfqgoml"
 
-[node name="Collider" type="CollisionShape3D" parent="." unique_id=257195334]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
-shape = SubResource("ConvexPolygonShape3D_qb6ay")
-
 [node name="SwordNoCol2" type="Node3D" parent="." unique_id=1900879580]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
 
 [node name="Sword" type="MeshInstance3D" parent="SwordNoCol2" unique_id=1788063837]
 mesh = SubResource("ArrayMesh_6lbss")
 surface_material_override/0 = SubResource("StandardMaterial3D_eghr6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1386049216]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.0928147e-10, 0.3975002)
+shape = SubResource("CapsuleShape3D_sevgc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=333641460]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 0, 1.0928147e-10, -0.10249982)
+shape = SubResource("CapsuleShape3D_1amwk")

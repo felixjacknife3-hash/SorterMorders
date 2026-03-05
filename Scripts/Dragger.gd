@@ -15,6 +15,5 @@ func _process(delta: float) -> void:
 func interact():
 	for i in get_collision_count():
 		var rayResult = get_collider(i)
-		print("Testing For Ray Collision")
 		if rayResult is DraggableObject:
 			dragging.emit(rayResult)

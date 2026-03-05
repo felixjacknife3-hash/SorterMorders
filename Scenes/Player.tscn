@@ -54,6 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Face" type="MeshInstance3D" parent="Head" unique_id=13010648]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+visible = false
 mesh = SubResource("BoxMesh_xhfnw")
 
 [node name="Cam" type="Camera3D" parent="Head" unique_id=317463938]
@@ -70,6 +71,6 @@ script = ExtResource("2_kpjcp")
 player = NodePath("../..")
 
 [node name="DragAt" type="Marker3D" parent="Head" unique_id=190992176]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1999998)
 
 [connection signal="dragging" from="Head/DragDetector" to="." method="drag"]
