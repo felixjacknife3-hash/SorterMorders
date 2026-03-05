@@ -17,3 +17,4 @@ func interact():
 		var rayResult = get_collider(i)
 		if rayResult is DraggableObject:
 			dragging.emit(rayResult)
+			break

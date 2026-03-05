@@ -18,4 +18,5 @@ script = ExtResource("1_txr1q")
 shape = SubResource("BoxShape3D_oivvi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=306677447]
+gi_mode = 2
 mesh = SubResource("BoxMesh_oivvi")

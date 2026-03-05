@@ -19,6 +19,7 @@ class_name Player
 
 @export_subgroup("Drag")
 @export var strength := 200.0
+@export var rotStrength := 6.0
 @export var damping := 3.0
 @export_group("Bools")
 
@@ -59,11 +60,14 @@ func _input(event):
 #region
 func drag(collider: DraggableObject) -> void:
 	ray.shape = shapeHeld
-	var target := dragTo.global_position
-	var diff := target - collider.global_position
+	var targetPos := dragTo.global_position
+	var targetRot :=  dragTo.global_rotation
+	var posDiff := targetPos - collider.global_position
+	var rotDiff := targetRot - collider.global_rotation
 	
-	collider.apply_central_force(diff * strength)
+	collider.apply_central_force(posDiff * strength)
 	collider.linear_velocity *= (1.0 - damping * get_physics_process_delta_time())
+	collider.angular_velocity = rotDiff * rotStrength
 #endregion
 
 func _physics_process(delta: float) -> void:
@@ -108,7 +112,7 @@ func _physics_process(delta: float) -> void:
 	#Actual Movement Shit
 	var input_dir := Input.get_vector("A", "D", "W", "S")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
+	if direction and captured:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
 	else:

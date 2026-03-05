@@ -47,6 +47,7 @@ shape = SubResource("CapsuleShape3D_xhfnw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=888354271]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+gi_mode = 2
 mesh = SubResource("CapsuleMesh_xhfnw")
 
 [node name="Head" type="Node3D" parent="." unique_id=800694193]
@@ -54,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Face" type="MeshInstance3D" parent="Head" unique_id=13010648]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
-visible = false
+gi_mode = 2
 mesh = SubResource("BoxMesh_xhfnw")
 
 [node name="Cam" type="Camera3D" parent="Head" unique_id=317463938]
@@ -64,6 +65,10 @@ shadow_enabled = true
 spot_range = 20.0
 spot_angle = 20.0
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Head/Light" unique_id=1978001799]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.39999998, 0)
+omni_range = 1.7
+
 [node name="DragDetector" type="ShapeCast3D" parent="Head" unique_id=1724953027 node_paths=PackedStringArray("player")]
 shape = SubResource("SphereShape3D_kpjcp")
 target_position = Vector3(0, 0, -4)
@@ -71,6 +76,6 @@ script = ExtResource("2_kpjcp")
 player = NodePath("../..")
 
 [node name="DragAt" type="Marker3D" parent="Head" unique_id=190992176]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1999998)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3)
 
 [connection signal="dragging" from="Head/DragDetector" to="." method="drag"]
