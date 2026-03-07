@@ -2,12 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuhebgvknjeur" path="res://Scripts/PlayerController.gd" id="1_xhfnw"]
 [ext_resource type="Script" uid="uid://b5xubk2yelrht" path="res://Scripts/Dragger.gd" id="2_kpjcp"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_kne1u"]
-radius = 1.4
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_e80uo"]
-radius = 0.4
+[ext_resource type="Script" uid="uid://8op6mltt5jbn" path="res://Scripts/DraggingNode.gd" id="3_gntrk"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 
@@ -28,18 +23,20 @@ size = Vector3(1, 0.5, 0.6)
 [sub_resource type="SphereShape3D" id="SphereShape3D_kpjcp"]
 radius = 0.4
 
-[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("head", "light", "ray", "dragTo")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_gntrk"]
+radius = 1.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dewec"]
+radius = 0.4
+
+[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("head", "light")]
 script = ExtResource("1_xhfnw")
 sprintSpeed = 7.0
 baseSpeed = 4.0
+jumpVel = 3.5
 sens = 1.5
-strength = 400.0
 head = NodePath("Head")
 light = NodePath("Head/Light")
-ray = NodePath("Head/DragDetector")
-dragTo = NodePath("Head/DragAt")
-shapeHeld = SubResource("SphereShape3D_kne1u")
-shapeUnHeld = SubResource("SphereShape3D_e80uo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=607986907]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -66,16 +63,26 @@ spot_range = 20.0
 spot_angle = 20.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Head/Light" unique_id=1978001799]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.39999998, 0)
-omni_range = 1.7
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
+light_energy = 0.5
+omni_range = 1.3000001
 
-[node name="DragDetector" type="ShapeCast3D" parent="Head" unique_id=1724953027 node_paths=PackedStringArray("player")]
+[node name="DragDetector" type="ShapeCast3D" parent="Head" unique_id=1724953027]
 shape = SubResource("SphereShape3D_kpjcp")
 target_position = Vector3(0, 0, -4)
 script = ExtResource("2_kpjcp")
-player = NodePath("../..")
 
 [node name="DragAt" type="Marker3D" parent="Head" unique_id=190992176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3)
 
-[connection signal="dragging" from="Head/DragDetector" to="." method="drag"]
+[node name="DraggingNode" type="Node" parent="." unique_id=414226753 node_paths=PackedStringArray("ray", "dragTo")]
+script = ExtResource("3_gntrk")
+ray = NodePath("../Head/DragDetector")
+dragTo = NodePath("../Head/DragAt")
+strength = 400.0
+damping = 4.0
+shapeHeld = SubResource("SphereShape3D_gntrk")
+shapeUnheld = SubResource("SphereShape3D_dewec")
+
+[connection signal="dragging" from="Head/DragDetector" to="DraggingNode" method="drag"]
+[connection signal="endDragging" from="Head/DragDetector" to="DraggingNode" method="_stopDrag"]

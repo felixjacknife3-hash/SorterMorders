@@ -66,6 +66,7 @@ radius = 0.10595703
 height = 0.99902344
 
 [node name="Sword" type="RigidBody3D" unique_id=1451926071]
+angular_damp = 1.0
 script = ExtResource("1_tt53q")
 metadata/_custom_type_script = "uid://bc7mkcdfqgoml"
 

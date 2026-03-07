@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://c5opnqts4wk42"]
+
+[ext_resource type="Script" uid="uid://lq42cgbmbbke" path="res://Scripts/ShowLevel.gd" id="1_qqnya"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hg628"]
+
+[sub_resource type="Gradient" id="Gradient_qqnya"]
+offsets = PackedFloat32Array(0.73876405, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hg628"]
+gradient = SubResource("Gradient_qqnya")
+width = 10
+height = 10
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_5hy3q"]
+offsets = PackedFloat32Array(0.7949438, 1)
+colors = PackedColorArray(0.42903125, 0.42903125, 0.42903125, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cbhj7"]
+gradient = SubResource("Gradient_5hy3q")
+width = 10
+height = 10
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_q4at1"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.997191)
+colors = PackedColorArray(0.44755095, 0.44755095, 0.44755095, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6f4k2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bdxpv"]
+width = 2
+height = 12
+noise = SubResource("FastNoiseLite_6f4k2")
+color_ramp = SubResource("Gradient_q4at1")
+
+[node name="Options" type="Control" unique_id=1844625058]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=1923913573]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+current_tab = 0
+
+[node name="Graphics" type="ScrollContainer" parent="TabContainer" unique_id=1741544736]
+layout_mode = 2
+theme_override_constants/scrollbar_h_separation = 2
+metadata/_tab_index = 0
+
+[node name="HFlow" type="VBoxContainer" parent="TabContainer/Graphics" unique_id=879509151]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Reflections" type="HFlowContainer" parent="TabContainer/Graphics/HFlow" unique_id=281603832]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/HFlow/Reflections" unique_id=526447284]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Reflections Level:"
+
+[node name="HSlider" type="HSlider" parent="TabContainer/Graphics/HFlow/Reflections" unique_id=878082542]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 2.0
+tick_count = 3
+ticks_on_borders = true
+
+[node name="VSeparator" type="VSeparator" parent="TabContainer/Graphics/HFlow/Reflections" unique_id=2038380996]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hg628")
+
+[node name="Shower" type="Label" parent="TabContainer/Graphics/HFlow/Reflections" unique_id=974537538 node_paths=PackedStringArray("slider")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Low"
+script = ExtResource("1_qqnya")
+slider = NodePath("../HSlider")
+items = Array[String](["Low", "Med", "High"])
+
+[node name="VSeparator2" type="VSeparator" parent="TabContainer/Graphics/HFlow/Reflections" unique_id=744427765]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hg628")
+
+[node name="Reflections2" type="HFlowContainer" parent="TabContainer/Graphics/HFlow" unique_id=895954808]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/HFlow/Reflections2" unique_id=1205187454]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = ":"
+
+[node name="HSlider" type="HSlider" parent="TabContainer/Graphics/HFlow/Reflections2" unique_id=851731140]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_icons/grabber = SubResource("GradientTexture2D_hg628")
+theme_override_icons/grabber_highlight = SubResource("GradientTexture2D_hg628")
+theme_override_icons/grabber_disabled = SubResource("GradientTexture2D_cbhj7")
+theme_override_icons/tick = SubResource("NoiseTexture2D_bdxpv")
+max_value = 2.0
+tick_count = 3
+ticks_position = 3
+
+[node name="VSeparator" type="VSeparator" parent="TabContainer/Graphics/HFlow/Reflections2" unique_id=549322693]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hg628")
+
+[node name="Shower" type="Label" parent="TabContainer/Graphics/HFlow/Reflections2" unique_id=6380367 node_paths=PackedStringArray("slider")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Low"
+script = ExtResource("1_qqnya")
+slider = NodePath("../HSlider")
+items = Array[String](["Low", "Med", "High"])
+
+[node name="VSeparator2" type="VSeparator" parent="TabContainer/Graphics/HFlow/Reflections2" unique_id=1066486785]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hg628")
+
+[connection signal="drag_ended" from="TabContainer/Graphics/HFlow/Reflections/HSlider" to="TabContainer/Graphics/HFlow/Reflections/Shower" method="dragEnd"]
+[connection signal="drag_ended" from="TabContainer/Graphics/HFlow/Reflections2/HSlider" to="TabContainer/Graphics/HFlow/Reflections2/Shower" method="dragEnd"]

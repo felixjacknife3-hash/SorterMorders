@@ -17,10 +17,6 @@ class_name Player
 @export var minXRot: float = -70
 @export var maxXRot: float = 80
 
-@export_subgroup("Drag")
-@export var strength := 200.0
-@export var rotStrength := 6.0
-@export var damping := 3.0
 @export_group("Bools")
 
 @export_group("Nodes")
@@ -29,14 +25,6 @@ class_name Player
 @export var head: Node3D
 @export var environment: TimedEnvironment
 @export var light: SpotLight3D
-
-@export_subgroup("Drag")
-@export var ray: dragRay
-@export var dragTo: Marker3D
-
-@export_group("Resources")
-@export var shapeHeld: Shape3D
-@export var shapeUnHeld: Shape3D
 
 #non-editor vars
 var speed: float = 3
@@ -55,20 +43,6 @@ func _input(event):
 		rotate_y(deg_to_rad(-event.relative.x * sens))
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, minXRot, maxXRot)
 	#endregion
-
-#drag Logic
-#region
-func drag(collider: DraggableObject) -> void:
-	ray.shape = shapeHeld
-	var targetPos := dragTo.global_position
-	var targetRot :=  dragTo.global_rotation
-	var posDiff := targetPos - collider.global_position
-	var rotDiff := targetRot - collider.global_rotation
-	
-	collider.apply_central_force(posDiff * strength)
-	collider.linear_velocity *= (1.0 - damping * get_physics_process_delta_time())
-	collider.angular_velocity = rotDiff * rotStrength
-#endregion
 
 func _physics_process(delta: float) -> void:
 	light.visible = not environment.day
