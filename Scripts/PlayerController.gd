@@ -17,6 +17,9 @@ class_name Player
 @export var minXRot: float = -70
 @export var maxXRot: float = 80
 
+@export_subgroup("Bhop")
+@export var bHopResetTime := 0.5
+
 @export_group("Bools")
 
 @export_group("Nodes")
@@ -28,7 +31,9 @@ class_name Player
 
 #non-editor vars
 var speed: float = 3
-var jumps = 0
+var jumps := 0
+var bHopTimer: float = 0
+var currBHopMulti := 1.0
 
 var captured: bool = true
 
@@ -64,15 +69,20 @@ func _physics_process(delta: float) -> void:
 	#Set Double jump to 0 on touching ground
 	if is_on_floor():
 		jumps = 0
-	
+		bHopTimer += delta
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
+		bHopTimer = 0
+		currBHopMulti += 0.05
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and jumps < maxJumps:
 		velocity.y = jumpVel
 		jumps += 1
+	
+	if is_on_floor() and bHopTimer > bHopResetTime:
+		currBHopMulti = 1
+		bHopTimer = 0
 	#endregion
 	
 	#Movement Region
@@ -82,6 +92,8 @@ func _physics_process(delta: float) -> void:
 		speed = sprintSpeed
 	else:
 		speed = baseSpeed
+	
+	speed *= clamp(currBHopMulti, 1, 50)
 	
 	#Actual Movement Shit
 	var input_dir := Input.get_vector("A", "D", "W", "S")

@@ -1,0 +1,223 @@
+[gd_scene format=3 uid="uid://c0r3h6kd1curt"]
+
+[ext_resource type="Script" uid="uid://bxi71frbd4yc4" path="res://Scripts/Environment.gd" id="1_7u2t8"]
+[ext_resource type="PackedScene" uid="uid://dxo43j4m0kq68" path="res://Scenes/Player.tscn" id="2_7u2t8"]
+[ext_resource type="Terrain3DMaterial" uid="uid://11bk831ew1u0" path="res://Resources/TerrainMat.tres" id="3_y0rla"]
+[ext_resource type="Terrain3DAssets" uid="uid://b3i8trrdkqdsp" path="res://Resources/TerrainAssets.tres" id="4_ngold"]
+[ext_resource type="VoxelGIData" uid="uid://dpl7erioh5qk1" path="res://Resources/MainWorldVoxelGI_data.res" id="6_hv00y"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ngold"]
+
+[sub_resource type="Gradient" id="Gradient_ngold"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.98)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0.49803922)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x4wt1"]
+noise_type = 2
+frequency = 1.0
+fractal_type = 2
+fractal_lacunarity = 3.0
+fractal_gain = 2.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cm0pq"]
+width = 4096
+height = 3072
+noise = SubResource("FastNoiseLite_x4wt1")
+color_ramp = SubResource("Gradient_ngold")
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_y0rla"]
+rayleigh_color = Color(0.2578149, 0.3509908, 0.5306423, 1)
+turbidity = 200.0
+sun_disk_scale = 75.0
+ground_color = Color(0.075271405, 0.049214043, 0.022533428, 1)
+energy_multiplier = 2.0
+night_sky = SubResource("NoiseTexture2D_cm0pq")
+
+[sub_resource type="Sky" id="Sky_3dxm6"]
+sky_material = SubResource("PhysicalSkyMaterial_y0rla")
+
+[sub_resource type="Environment" id="Environment_1etib"]
+background_mode = 2
+sky = SubResource("Sky_3dxm6")
+tonemap_mode = 2
+ssao_enabled = true
+fog_enabled = true
+fog_density = 0.0
+fog_sky_affect = 0.4
+
+[sub_resource type="Animation" id="Animation_hv00y"]
+resource_name = "Day"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimedEnvironment/DirectionalLight3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.81915194, 0, 0, 0.5735765, 0.5, 1, -0.81915194, 0, 0, 0.5735765)
+
+[sub_resource type="Animation" id="Animation_kwijy"]
+resource_name = "Night"
+length = 0.50000334
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimedEnvironment/DirectionalLight3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.81915194, 0, 0, 0.5735765, 0.5, 1, 0.81915194, 0, 0, 0.5735765)
+
+[sub_resource type="Animation" id="Animation_ymawn"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimedEnvironment/DirectionalLight3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.81915194, 0, 0, 0.5735765)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_66wvp"]
+_data = {
+&"Day": SubResource("Animation_hv00y"),
+&"Night": SubResource("Animation_kwijy"),
+&"RESET": SubResource("Animation_ymawn")
+}
+
+[node name="Main" type="Node3D" unique_id=1584271188]
+
+[node name="World" type="Node3D" parent="." unique_id=668762262]
+
+[node name="Collision" type="Node3D" parent="World" unique_id=1144553875]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Collision" unique_id=304398192]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -4.4, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/StaticBody3D" unique_id=10416425]
+transform = Transform3D(1, 0, 0, 0, -2.8810227e-08, -1, 0, 1, -2.8810227e-08, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="Terrain3D" type="Terrain3D" parent="World/Collision" unique_id=981592354]
+data_directory = "res://Resources"
+material = ExtResource("3_y0rla")
+assets = ExtResource("4_ngold")
+show_grid = true
+mesh_lods = 10
+mesh_size = 32
+show_region_grid = true
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="InvisWalls" type="Node3D" parent="World/Collision" unique_id=493711337]
+
+[node name="Node3D" type="Node3D" parent="World/Collision/InvisWalls" unique_id=1983885504]
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Collision/InvisWalls/Node3D" unique_id=330470097]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -4.4, -67.9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/InvisWalls/Node3D/StaticBody3D2" unique_id=490011697]
+transform = Transform3D(1, 0, 0, 0, -0.99619466, 0.08715563, 0, -0.08715563, -0.99619466, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="Node3D6" type="Node3D" parent="World/Collision/InvisWalls" unique_id=855352092]
+transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Collision/InvisWalls/Node3D6" unique_id=998037262]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -4.4000006, -75)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/InvisWalls/Node3D6/StaticBody3D2" unique_id=82694791]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="Node3D7" type="Node3D" parent="World/Collision/InvisWalls" unique_id=326530939]
+transform = Transform3D(-0.08715573, 0, 0.9961947, 0, 1, 0, -0.9961947, 0, -0.08715573, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Collision/InvisWalls/Node3D7" unique_id=2139579655]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -4.4000006, -75)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/InvisWalls/Node3D7/StaticBody3D2" unique_id=454251196]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="Node3D8" type="Node3D" parent="World/Collision/InvisWalls" unique_id=656859696]
+transform = Transform3D(-0.08715573, 0, 0.9961947, 0, 1, 0, -0.9961947, 0, -0.08715573, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Collision/InvisWalls/Node3D8" unique_id=790409175]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -4.4000006, -75)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/InvisWalls/Node3D8/StaticBody3D2" unique_id=1183911958]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="Node3D2" type="Node3D" parent="World/Collision/InvisWalls" unique_id=1517218341]
+transform = Transform3D(0.76604444, 0, -0.6427876, 0, 1, 0, 0.6427876, 0, 0.76604444, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Collision/InvisWalls/Node3D2" unique_id=295077446]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -4.4, -67.9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/InvisWalls/Node3D2/StaticBody3D2" unique_id=616224968]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="Node3D3" type="Node3D" parent="World/Collision/InvisWalls" unique_id=1027191564]
+transform = Transform3D(0, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 0, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Collision/InvisWalls/Node3D3" unique_id=791802787]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -4.4, -74.700005)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/InvisWalls/Node3D3/StaticBody3D2" unique_id=862591598]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="Node3D4" type="Node3D" parent="World/Collision/InvisWalls" unique_id=1526468979]
+transform = Transform3D(-0.64278764, 0, -0.76604456, 0, 1, 0, 0.76604456, 0, -0.64278764, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Collision/InvisWalls/Node3D4" unique_id=767987833]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 14.400001, -4.4, -76.4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/InvisWalls/Node3D4/StaticBody3D2" unique_id=1713436316]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="Node3D5" type="Node3D" parent="World/Collision/InvisWalls" unique_id=998886222]
+transform = Transform3D(-1, 0, -5.9604645e-08, 0, 1, 0, 5.9604645e-08, 0, -1, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Collision/InvisWalls/Node3D5" unique_id=1742042387]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 9.3579274e-07, -4.4, -90.4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Collision/InvisWalls/Node3D5/StaticBody3D2" unique_id=402502173]
+transform = Transform3D(1, 0, 0, 0, -0.9961947, 0.08715564, 0, -0.08715564, -0.9961947, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_ngold")
+
+[node name="TimedEnvironment" type="Node3D" parent="." unique_id=1866057653 node_paths=PackedStringArray("sunLight", "animPlayer")]
+script = ExtResource("1_7u2t8")
+dayLength = 300.0
+nightLength = 150.0
+sunLight = NodePath("DirectionalLight3D")
+animPlayer = NodePath("SunAnims")
+metadata/_custom_type_script = "uid://bxi71frbd4yc4"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="TimedEnvironment" unique_id=140871821]
+transform = Transform3D(1.0000001, 0, 0, 0, -0.34201977, 0.93969285, 0, -0.9396926, -0.34201983, 0, 0, 0)
+light_color = Color(0.42288277, 0.4228828, 0.4228828, 1)
+light_energy = 0.9
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+shadow_enabled = true
+directional_shadow_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="TimedEnvironment" unique_id=823739640]
+environment = SubResource("Environment_1etib")
+
+[node name="SunAnims" type="AnimationPlayer" parent="TimedEnvironment" unique_id=93761171]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_66wvp")
+
+[node name="Player" parent="." unique_id=1751044688 node_paths=PackedStringArray("environment") instance=ExtResource("2_7u2t8")]
+environment = NodePath("../TimedEnvironment")
+
+[node name="VoxelGI" type="VoxelGI" parent="." unique_id=1711846293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.800002, 0)
+size = Vector3(188.40001, 62.8, 158.2)
+data = ExtResource("6_hv00y")

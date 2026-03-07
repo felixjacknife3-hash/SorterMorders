@@ -35,6 +35,7 @@ sprintSpeed = 7.0
 baseSpeed = 4.0
 jumpVel = 3.5
 sens = 1.5
+bHopResetTime = 0.3
 head = NodePath("Head")
 light = NodePath("Head/Light")
 

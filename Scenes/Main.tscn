@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://64m6rjuyxwmh" path="res://Scenes/Sword.tscn" id="4_jw32o"]
 [ext_resource type="VoxelGIData" uid="uid://bla0kwimfcmr6" path="res://Resources/VoxelGI.res" id="5_pbw6q"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pbw6q"]
+metallic = 1.0
+roughness = 0.0
+
 [sub_resource type="Gradient" id="Gradient_uu6xs"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.98)
@@ -109,6 +113,7 @@ size = Vector3(12, 1, 12)
 [node name="CSGBox3D2" type="CSGBox3D" parent="World/CSGCombiner3D" unique_id=743308919]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, -6.25)
 size = Vector3(12, 7.5, 1.9)
+material = SubResource("StandardMaterial3D_pbw6q")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="World/CSGCombiner3D" unique_id=445075361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 6.55)
