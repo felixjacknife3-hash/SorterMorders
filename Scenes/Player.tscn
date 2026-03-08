@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cuhebgvknjeur" path="res://Scripts/PlayerController.gd" id="1_xhfnw"]
 [ext_resource type="Script" uid="uid://b5xubk2yelrht" path="res://Scripts/Dragger.gd" id="2_kpjcp"]
 [ext_resource type="Script" uid="uid://8op6mltt5jbn" path="res://Scripts/DraggingNode.gd" id="3_gntrk"]
+[ext_resource type="Texture2D" uid="uid://c0nvwh8tdbow7" path="res://Images/crosshair.png" id="4_dewec"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 
@@ -60,13 +61,13 @@ mesh = SubResource("BoxMesh_xhfnw")
 
 [node name="Light" type="SpotLight3D" parent="Head" unique_id=1571608150]
 shadow_enabled = true
-spot_range = 20.0
-spot_angle = 20.0
+spot_range = 1000.0
+spot_angle = 24.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Head/Light" unique_id=1978001799]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
 light_energy = 0.5
-omni_range = 1.3000001
+omni_range = 4.0
 
 [node name="DragDetector" type="ShapeCast3D" parent="Head" unique_id=1724953027]
 shape = SubResource("SphereShape3D_kpjcp")
@@ -84,6 +85,29 @@ strength = 400.0
 damping = 4.0
 shapeHeld = SubResource("SphereShape3D_gntrk")
 shapeUnheld = SubResource("SphereShape3D_dewec")
+
+[node name="Control" type="Control" parent="." unique_id=1348109915]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1440990643]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_dewec")
 
 [connection signal="dragging" from="Head/DragDetector" to="DraggingNode" method="drag"]
 [connection signal="endDragging" from="Head/DragDetector" to="DraggingNode" method="_stopDrag"]

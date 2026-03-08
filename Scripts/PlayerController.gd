@@ -22,6 +22,8 @@ class_name Player
 
 @export_group("Bools")
 
+@export var freeFlying: bool
+
 @export_group("Nodes")
 
 @export_subgroup("Misc 3D")
@@ -39,18 +41,27 @@ var captured: bool = true
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 
 func _input(event):
 	#cam movement logic
 	#region
 	if event is InputEventMouseMotion and captured:
+		if freeFlying:
+			var savedX = rotation_degrees.x
+			rotation_degrees.x = 0
+			rotate_y(deg_to_rad(-event.relative.x * sens))
+			rotation.x = (deg_to_rad(savedX + -event.relative.y * sens))
+			rotation_degrees.x = clamp(rotation_degrees.x, -90, 90)
+			return
 		head.rotate_x(deg_to_rad(-event.relative.y * sens))
 		rotate_y(deg_to_rad(-event.relative.x * sens))
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, minXRot, maxXRot)
 	#endregion
 
 func _physics_process(delta: float) -> void:
-	light.visible = not environment.day
+	if environment:
+		light.visible = not environment.day
 	
 	#Pause Region
 	#region
@@ -70,11 +81,14 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		jumps = 0
 		bHopTimer += delta
+	
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		if not freeFlying:
+			velocity += get_gravity() * delta
 		bHopTimer = 0
-		currBHopMulti += 0.05
+		currBHopMulti += 0.01
+	
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and jumps < maxJumps:
 		velocity.y = jumpVel
@@ -107,3 +121,6 @@ func _physics_process(delta: float) -> void:
 	#endregion
 	
 	move_and_slide()
+
+func enterFreefly(flying: bool):
+	freeFlying = flying
