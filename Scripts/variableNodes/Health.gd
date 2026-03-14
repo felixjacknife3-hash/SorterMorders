@@ -1,11 +1,12 @@
 extends Node
+class_name HealthComponent
 
+@export var maxHealth: int = 250
+@export var health: int = int(1e12)
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func heal(amount: int) -> void:
+	health += amount
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func damage(amount: int) -> void:
+	health -= amount

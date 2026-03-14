@@ -1,5 +1,5 @@
 extends Node
-class_name MoneyBag
+class_name MoneyComponent
 
 @export var money: int = 100
 

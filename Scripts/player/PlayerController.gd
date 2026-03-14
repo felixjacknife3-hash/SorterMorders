@@ -21,8 +21,8 @@ class_name Player
 
 @export_subgroup("Variable Nodes")
 
-@export var money: MoneyBag
-@export var health: int
+@export var money: MoneyComponent
+@export var health: HealthComponent
 
 @export_subgroup("Misc 3D")
 @export var cam: Camera3D
