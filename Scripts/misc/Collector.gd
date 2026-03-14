@@ -5,10 +5,9 @@ func areaEntered(body):
 	if body is SellableDraggableBody:
 		var plr = getPlayer()
 		if not plr: return
-		
+		plr.money.addMoney(body.price)
 
 func getPlayer() -> Player:
 	if not get_tree().get_first_node_in_group("player"): return null
 	var plr = get_tree().get_first_node_in_group("player")
 	return plr
-	

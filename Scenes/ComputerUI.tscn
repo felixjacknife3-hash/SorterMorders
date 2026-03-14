@@ -10,6 +10,18 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_stob6"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe87u"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qe87u"]
 size = Vector2(62, 31)
 
@@ -21,6 +33,7 @@ script = ExtResource("1_gl8ar")
 cam = NodePath("Camera3D")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=172251958]
+texture_filter = 0
 texture = SubResource("ViewportTexture_stob6")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2118217745]
@@ -28,6 +41,7 @@ handle_input_locally = false
 size = Vector2i(240, 180)
 
 [node name="Control" type="Control" parent="SubViewport" unique_id=1736372358]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,8 +62,10 @@ offset_right = -2.0
 offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_qe87u")
 disabled = true
-text = "Button"
+text = "Back"
 script = ExtResource("4_gl8ar")
 screen = NodePath("../../..")
 shape = SubResource("RectangleShape2D_qe87u")

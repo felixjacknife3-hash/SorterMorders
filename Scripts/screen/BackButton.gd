@@ -14,5 +14,6 @@ func _ready() -> void:
 
 func press():
 	screen.changeViewing()
-	cam.current = true
+	if cam: cam.current = true
+	
 	print("game button")

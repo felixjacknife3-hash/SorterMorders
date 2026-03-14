@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cw6cdkuho7jqo"]
+
+[ext_resource type="Script" uid="uid://3ef0p53nhlkj" path="res://Enemy.gd" id="1_kmopr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kmopr"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qvbvf"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1110687441 node_paths=PackedStringArray("navAgent")]
+script = ExtResource("1_kmopr")
+speed = 2.0
+navAgent = NodePath("NavigationAgent3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=649897870]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_kmopr")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1188657540]
+height = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=361971102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_qvbvf")

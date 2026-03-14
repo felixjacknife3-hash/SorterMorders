@@ -20,7 +20,6 @@ class_name Player
 @export_group("Nodes")
 
 @export_subgroup("Variable Nodes")
-
 @export var money: MoneyComponent
 @export var health: HealthComponent
 

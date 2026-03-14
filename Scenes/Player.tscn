@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c0nvwh8tdbow7" path="res://Images/crosshair.png" id="4_dewec"]
 [ext_resource type="Script" uid="uid://b085n1mq1gsfj" path="res://Scripts/player/PauseScript.gd" id="5_5ixxa"]
 [ext_resource type="Script" uid="uid://d3m20iai2hh4e" path="res://Scripts/variableNodes/Money.gd" id="8_bhhdu"]
+[ext_resource type="Texture2D" uid="uid://66llnjfjprto" path="res://Images/MoneyBag.png" id="8_yoq75"]
+[ext_resource type="Script" uid="uid://bvgqtmvqogc2w" path="res://Scripts/ui/MoneyLabel.gd" id="9_ksbbd"]
 [ext_resource type="Script" uid="uid://di4h3ferw3gly" path="res://Scripts/variableNodes/Health.gd" id="9_megsn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
@@ -35,12 +37,14 @@ radius = 1.4
 [sub_resource type="SphereShape3D" id="SphereShape3D_dewec"]
 radius = 0.4
 
-[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("cam", "light") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("money", "health", "cam", "light") groups=["player"]]
 script = ExtResource("1_xhfnw")
 sprintSpeed = 7.0
 baseSpeed = 4.0
 jumpVel = 3.5
 bHopResetTime = 0.3
+money = NodePath("MoneyComponent")
+health = NodePath("HealthComponent")
 cam = NodePath("Head/Cam")
 light = NodePath("Head/Light")
 
@@ -73,6 +77,7 @@ spot_angle = 24.0
 [node name="OmniLight3D" type="OmniLight3D" parent="Head/Light" unique_id=1978001799]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
 light_energy = 0.5
+shadow_enabled = true
 omni_range = 4.0
 
 [node name="DragDetector" type="ShapeCast3D" parent="Head" unique_id=1724953027]
@@ -103,6 +108,7 @@ process_mode = 3
 script = ExtResource("5_5ixxa")
 
 [node name="Control" type="Control" parent="." unique_id=1348109915]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -125,11 +131,47 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_dewec")
 
-[node name="MoneyBag" type="Node" parent="." unique_id=1847761917]
-script = ExtResource("8_bhhdu")
+[node name="Control" type="Control" parent="Control" unique_id=977216654]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -27.0
+offset_right = 96.0
+offset_bottom = -3.0
+grow_vertical = 0
 
-[node name="Health" type="Node" parent="." unique_id=1831533303]
+[node name="Money" type="Label" parent="Control/Control" unique_id=112067606 node_paths=PackedStringArray("moneyComponent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "$0"
+script = ExtResource("9_ksbbd")
+moneyComponent = NodePath("../../../MoneyComponent")
+
+[node name="MoneyBag" type="TextureRect" parent="Control/Control" unique_id=534241190]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 24.0
+grow_vertical = 0
+texture = ExtResource("8_yoq75")
+
+[node name="MoneyComponent" type="Node" parent="." unique_id=674261741]
+script = ExtResource("8_bhhdu")
+metadata/_custom_type_script = "uid://d3m20iai2hh4e"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1949866035]
 script = ExtResource("9_megsn")
+metadata/_custom_type_script = "uid://di4h3ferw3gly"
 
 [connection signal="dragging" from="Head/DragDetector" to="DragNode" method="drag"]
 [connection signal="endDragging" from="Head/DragDetector" to="DragNode" method="_stopDrag"]
