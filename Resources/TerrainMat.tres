@@ -1,10 +1,10 @@
 [gd_resource type="Terrain3DMaterial" format=3 uid="uid://11bk831ew1u0"]
 
-[sub_resource type="Gradient" id="Gradient_7u2t8"]
+[sub_resource type="Gradient" id="Gradient_xypmc"]
 offsets = PackedFloat32Array(0.2, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4xxmu"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_852dx"]
 noise_type = 2
 frequency = 0.03
 cellular_jitter = 3.0
@@ -16,9 +16,9 @@ domain_warp_fractal_type = 2
 domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x0tsy"]
-noise = SubResource("FastNoiseLite_4xxmu")
-color_ramp = SubResource("Gradient_7u2t8")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6hm0q"]
+noise = SubResource("FastNoiseLite_852dx")
+color_ramp = SubResource("Gradient_xypmc")
 seamless = true
 
 [resource]
@@ -29,7 +29,7 @@ _shader_parameters = {
 &"enable_macro_variation": true,
 &"enable_projection": true,
 &"flat_terrain_normals": false,
-&"macro_variation1": Color(0.37716255, 0.37716258, 0.37716255, 1),
+&"macro_variation1": Color(1, 1, 1, 1),
 &"macro_variation2": Color(1, 1, 1, 1),
 &"macro_variation_slope": 0.333,
 &"mipmap_bias": 1.0,
@@ -37,6 +37,6 @@ _shader_parameters = {
 &"noise1_offset": Vector2(0.5, 0.5),
 &"noise1_scale": 0.04,
 &"noise2_scale": 0.076,
-&"noise_texture": SubResource("NoiseTexture2D_x0tsy"),
+&"noise_texture": SubResource("NoiseTexture2D_6hm0q"),
 &"projection_threshold": 0.8
 }

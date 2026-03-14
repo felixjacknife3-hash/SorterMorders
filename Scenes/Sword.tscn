@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://64m6rjuyxwmh"]
 
-[ext_resource type="Script" uid="uid://bc7mkcdfqgoml" path="res://Scripts/Draggable.gd" id="1_tt53q"]
+[ext_resource type="Script" uid="uid://bv0a3c6o28qr7" path="res://Scripts/drag/DraggableNotSell.gd" id="1_sevgc"]
 [ext_resource type="Texture2D" uid="uid://0jkd45k5di8l" path="res://Models/Sword/SwordMat.png" id="2_js3bo"]
 [ext_resource type="Texture2D" uid="uid://romj21ktsjy4" path="res://Models/Sword/SwordMat_AO.png" id="3_3i866"]
 [ext_resource type="Texture2D" uid="uid://dprdp26acx3wq" path="res://Models/Sword/SwordMat_Height.png" id="4_unms8"]
@@ -65,10 +65,10 @@ height = 2.2
 radius = 0.10595703
 height = 0.99902344
 
-[node name="Sword" type="RigidBody3D" unique_id=1451926071]
+[node name="Sword" type="RigidBody3D" unique_id=1083158234]
 angular_damp = 1.0
-script = ExtResource("1_tt53q")
-metadata/_custom_type_script = "uid://bc7mkcdfqgoml"
+script = ExtResource("1_sevgc")
+metadata/_custom_type_script = "uid://bv0a3c6o28qr7"
 
 [node name="SwordNoCol2" type="Node3D" parent="." unique_id=1900879580]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)

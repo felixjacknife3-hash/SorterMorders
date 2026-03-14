@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://dxo43j4m0kq68"]
 
-[ext_resource type="Script" uid="uid://cuhebgvknjeur" path="res://Scripts/PlayerController.gd" id="1_xhfnw"]
-[ext_resource type="Script" uid="uid://b5xubk2yelrht" path="res://Scripts/Dragger.gd" id="2_kpjcp"]
-[ext_resource type="Script" uid="uid://8op6mltt5jbn" path="res://Scripts/DraggingNode.gd" id="3_gntrk"]
+[ext_resource type="Script" uid="uid://cuhebgvknjeur" path="res://Scripts/player/PlayerController.gd" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://b5xubk2yelrht" path="res://Scripts/player/Dragger.gd" id="2_kpjcp"]
+[ext_resource type="Script" uid="uid://xt0hg1vn1ipf" path="res://Scripts/player/Head.gd" id="2_nn08x"]
+[ext_resource type="Script" uid="uid://8op6mltt5jbn" path="res://Scripts/player/DraggingNode.gd" id="3_gntrk"]
+[ext_resource type="Script" uid="uid://nux5xsvujq74" path="res://Scripts/player/Interacter.gd" id="4_52ee3"]
 [ext_resource type="Texture2D" uid="uid://c0nvwh8tdbow7" path="res://Images/crosshair.png" id="4_dewec"]
+[ext_resource type="Script" uid="uid://b085n1mq1gsfj" path="res://Scripts/player/PauseScript.gd" id="5_5ixxa"]
+[ext_resource type="Script" uid="uid://d3m20iai2hh4e" path="res://Scripts/variableNodes/Money.gd" id="8_bhhdu"]
+[ext_resource type="Script" uid="uid://di4h3ferw3gly" path="res://Scripts/variableNodes/Health.gd" id="9_megsn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 
@@ -30,14 +35,13 @@ radius = 1.4
 [sub_resource type="SphereShape3D" id="SphereShape3D_dewec"]
 radius = 0.4
 
-[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("head", "light")]
+[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("cam", "light") groups=["player"]]
 script = ExtResource("1_xhfnw")
 sprintSpeed = 7.0
 baseSpeed = 4.0
 jumpVel = 3.5
-sens = 1.5
 bHopResetTime = 0.3
-head = NodePath("Head")
+cam = NodePath("Head/Cam")
 light = NodePath("Head/Light")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=607986907]
@@ -51,6 +55,7 @@ mesh = SubResource("CapsuleMesh_xhfnw")
 
 [node name="Head" type="Node3D" parent="." unique_id=800694193]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_nn08x")
 
 [node name="Face" type="MeshInstance3D" parent="Head" unique_id=13010648]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
@@ -58,6 +63,7 @@ gi_mode = 2
 mesh = SubResource("BoxMesh_xhfnw")
 
 [node name="Cam" type="Camera3D" parent="Head" unique_id=317463938]
+current = true
 
 [node name="Light" type="SpotLight3D" parent="Head" unique_id=1571608150]
 shadow_enabled = true
@@ -77,7 +83,13 @@ script = ExtResource("2_kpjcp")
 [node name="DragAt" type="Marker3D" parent="Head" unique_id=190992176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3)
 
-[node name="DraggingNode" type="Node" parent="." unique_id=414226753 node_paths=PackedStringArray("ray", "dragTo")]
+[node name="InteractCast" type="RayCast3D" parent="Head" unique_id=308453791]
+target_position = Vector3(0, 0, -4)
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("4_52ee3")
+
+[node name="DragNode" type="Node" parent="." unique_id=414226753 node_paths=PackedStringArray("ray", "dragTo")]
 script = ExtResource("3_gntrk")
 ray = NodePath("../Head/DragDetector")
 dragTo = NodePath("../Head/DragAt")
@@ -85,6 +97,10 @@ strength = 400.0
 damping = 4.0
 shapeHeld = SubResource("SphereShape3D_gntrk")
 shapeUnheld = SubResource("SphereShape3D_dewec")
+
+[node name="Pauser" type="Node" parent="." unique_id=1229595254]
+process_mode = 3
+script = ExtResource("5_5ixxa")
 
 [node name="Control" type="Control" parent="." unique_id=1348109915]
 layout_mode = 3
@@ -109,5 +125,11 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_dewec")
 
-[connection signal="dragging" from="Head/DragDetector" to="DraggingNode" method="drag"]
-[connection signal="endDragging" from="Head/DragDetector" to="DraggingNode" method="_stopDrag"]
+[node name="MoneyBag" type="Node" parent="." unique_id=1847761917]
+script = ExtResource("8_bhhdu")
+
+[node name="Health" type="Node" parent="." unique_id=1831533303]
+script = ExtResource("9_megsn")
+
+[connection signal="dragging" from="Head/DragDetector" to="DragNode" method="drag"]
+[connection signal="endDragging" from="Head/DragDetector" to="DragNode" method="_stopDrag"]

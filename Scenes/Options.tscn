@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c5opnqts4wk42"]
 
-[ext_resource type="Script" uid="uid://lq42cgbmbbke" path="res://Scripts/ShowLevel.gd" id="1_qqnya"]
+[ext_resource type="Script" uid="uid://lq42cgbmbbke" path="res://Scripts/ui/ShowLevel.gd" id="1_qqnya"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hg628"]
 

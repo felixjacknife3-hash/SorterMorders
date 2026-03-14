@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://boonuc8sqj4w7"]
 
-[ext_resource type="Script" uid="uid://bc7mkcdfqgoml" path="res://Scripts/Draggable.gd" id="1_txr1q"]
+[ext_resource type="Script" uid="uid://dbtxh5w6nkiqr" path="res://Scripts/drag/SellDragBody.gd" id="1_bhaip"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oivvi"]
 size = Vector3(0.6, 1, 1)
@@ -8,10 +8,11 @@ size = Vector3(0.6, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_oivvi"]
 size = Vector3(0.6, 1, 1)
 
-[node name="DraggableObject" type="RigidBody3D" unique_id=141783747]
+[node name="DraggableObject" type="RigidBody3D" unique_id=2020282789]
 freeze_mode = 1
 angular_damp = 1.0
-script = ExtResource("1_txr1q")
+script = ExtResource("1_bhaip")
+metadata/_custom_type_script = "uid://dbtxh5w6nkiqr"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=295390818]
 shape = SubResource("BoxShape3D_oivvi")

@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bynnra4fefca8"]
+
+[ext_resource type="Texture2D" uid="uid://bl3b2qiksiqb4" path="res://Models/Hole/Dirt.jpg" id="1_nasce"]
+
+[resource]
+albedo_color = Color(0.738036, 0.7380288, 0.73803073, 1)
+albedo_texture = ExtResource("1_nasce")

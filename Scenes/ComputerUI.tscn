@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://bpidy2mqr6chi"]
+
+[ext_resource type="Script" uid="uid://ceoskii186vk3" path="res://Scripts/screen/ComputerScreen.gd" id="1_gl8ar"]
+[ext_resource type="Script" uid="uid://dx426hvaxstrq" path="res://Scripts/screen/ComputerMouse.gd" id="1_qjd30"]
+[ext_resource type="Script" uid="uid://cdge1lufu6mt8" path="res://Scripts/screen/MouseMover.gd" id="4_el7wc"]
+[ext_resource type="Script" uid="uid://tcv6qakyp3yv" path="res://Scripts/screen/BackButton.gd" id="4_gl8ar"]
+[ext_resource type="Texture2D" uid="uid://cc5wm70dhgjp7" path="res://Images/Cursor.png" id="5_gl8ar"]
+[ext_resource type="Texture2D" uid="uid://bgtjade0r7ijx" path="res://Images/PCBackground.png" id="5_pfmxc"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_stob6"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qe87u"]
+size = Vector2(62, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ul38a"]
+size = Vector2(8, 8)
+
+[node name="Screen" type="Node3D" unique_id=1304984359 node_paths=PackedStringArray("cam")]
+script = ExtResource("1_gl8ar")
+cam = NodePath("Camera3D")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=172251958]
+texture = SubResource("ViewportTexture_stob6")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2118217745]
+handle_input_locally = false
+size = Vector2i(240, 180)
+
+[node name="Control" type="Control" parent="SubViewport" unique_id=1736372358]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ComputerNormalButton" type="Button" parent="SubViewport/Control" unique_id=1098247753 node_paths=PackedStringArray("screen")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -37.0
+offset_right = -2.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+disabled = true
+text = "Button"
+script = ExtResource("4_gl8ar")
+screen = NodePath("../../..")
+shape = SubResource("RectangleShape2D_qe87u")
+metadata/_custom_type_script = "uid://c7k47c54wwmna"
+
+[node name="Mouse" type="Control" parent="SubViewport/Control" unique_id=2127680922]
+z_index = 1000
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qjd30")
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/Control/Mouse" unique_id=817864730]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 7.0
+offset_bottom = 7.0
+texture = ExtResource("5_gl8ar")
+
+[node name="MouseArea" type="Area2D" parent="SubViewport/Control/Mouse" unique_id=448746779]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewport/Control/Mouse/MouseArea" unique_id=1529969518]
+position = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_ul38a")
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/Control" unique_id=1166462028]
+z_index = -2000
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_pfmxc")
+
+[node name="MouseMover" type="Node" parent="." unique_id=1109964365 node_paths=PackedStringArray("mouse")]
+script = ExtResource("4_el7wc")
+mouse = NodePath("../SubViewport/Control/Mouse")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=606648050]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+
+[connection signal="area_entered" from="SubViewport/Control/Mouse/MouseArea" to="SubViewport/Control/Mouse" method="areaEntered"]
+[connection signal="area_exited" from="SubViewport/Control/Mouse/MouseArea" to="SubViewport/Control/Mouse" method="areaExited"]

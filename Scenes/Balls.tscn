@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://ch6y404bvq1bm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_geust"]
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_i2lsv"]
+material = SubResource("StandardMaterial3D_geust")
+
+[sub_resource type="BoxMesh" id="BoxMesh_geust"]
+size = Vector3(1, 8, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aafwo"]
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i2lsv"]
+metallic = 1.0
+roughness = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_aafwo"]
+material = SubResource("StandardMaterial3D_i2lsv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s4jbr"]
+metallic = 1.0
+roughness = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_blt2q"]
+material = SubResource("StandardMaterial3D_s4jbr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sf3c"]
+metallic = 1.0
+roughness = 0.75
+
+[sub_resource type="SphereMesh" id="SphereMesh_2jkt6"]
+material = SubResource("StandardMaterial3D_4sf3c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y77ei"]
+metallic = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ov7qs"]
+material = SubResource("StandardMaterial3D_y77ei")
+
+[node name="Balls" type="Node3D" unique_id=161937979]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=488855858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_i2lsv")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=307601594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 5.1)
+mesh = SubResource("BoxMesh_geust")
+surface_material_override/0 = SubResource("StandardMaterial3D_aafwo")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=115361876]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4999999, 0)
+mesh = SubResource("SphereMesh_aafwo")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=660594070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("SphereMesh_blt2q")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=782328817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+mesh = SubResource("SphereMesh_2jkt6")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=769711937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5000005, 0)
+mesh = SubResource("SphereMesh_ov7qs")

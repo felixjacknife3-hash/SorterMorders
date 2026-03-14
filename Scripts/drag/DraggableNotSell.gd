@@ -1,0 +1,2 @@
+extends DraggableBody
+class_name NormalDraggableBody

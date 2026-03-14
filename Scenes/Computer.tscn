@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bgrafw3ctwjrr"]
+
+[ext_resource type="Script" uid="uid://cirhc2cc42l6x" path="res://Scripts/misc/Interactable.gd" id="1_7nkhe"]
+[ext_resource type="PackedScene" uid="uid://bpidy2mqr6chi" path="res://Scenes/ComputerUI.tscn" id="2_bamam"]
+[ext_resource type="PackedScene" uid="uid://oq233mcbq81a" path="res://Models/Computer/Computer.glb" id="3_561pf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bamam"]
+size = Vector3(0.8, 0.8, 0.65)
+
+[node name="Computer" type="Node3D" unique_id=1711479870]
+
+[node name="Interactable" type="Area3D" parent="." unique_id=181556929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("1_7nkhe")
+metadata/_custom_type_script = "uid://cirhc2cc42l6x"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=2104513802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.099999994, -0.1)
+shape = SubResource("BoxShape3D_bamam")
+
+[node name="ComputerReal" type="Node3D" parent="." unique_id=789573823]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Screen" parent="ComputerReal" unique_id=1304984359 instance=ExtResource("2_bamam")]
+transform = Transform3D(0.44, 0, 0, 0, 0.42500734, 0.11388038, 0, -0.11388038, 0.42500734, 0.00019999966, 1.1041535, 0.3988871)
+
+[node name="Computer" parent="ComputerReal" unique_id=958268263 instance=ExtResource("3_561pf")]
+transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, 0, -2.3841858e-07, -5.9604645e-08)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=813017025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.3)
+light_energy = 0.5
+omni_range = 1.0
+
+[connection signal="interacted" from="Interactable" to="ComputerReal/Screen" method="changeViewing"]

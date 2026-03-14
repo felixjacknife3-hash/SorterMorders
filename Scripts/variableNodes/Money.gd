@@ -1,0 +1,11 @@
+extends Node
+class_name MoneyBag
+
+@export var money: int = 100
+
+# Called when the node enters the scene tree for the first time.
+func addMoney(amount: int) -> void:
+	money += amount
+
+func subtractMoney(amount: int) -> void:
+	money -= amount
