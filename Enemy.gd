@@ -23,11 +23,11 @@ func getMoveDir() -> Vector3:
 func  _ready() -> void:
 	setPlayer()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	setTarget()
 	var moveDir = getMoveDir()
 	
-	velocity = (moveDir * delta) * speed
+	velocity = (moveDir) * speed
 	
 	if not is_on_floor():
 		velocity += get_gravity()

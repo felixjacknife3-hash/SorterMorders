@@ -5,7 +5,6 @@ class_name TimedEnvironment
 @export var dayLength: float = 2400
 @export var nightLength: float = 600
 @export_group("Light")
-@export var sunLight: DirectionalLight3D
 @export var animPlayer: AnimationPlayer
 
 var cycleLength: float
