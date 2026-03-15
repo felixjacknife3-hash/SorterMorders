@@ -11,13 +11,13 @@ var currDay: int = 1
 
 func getRandPos() -> Vector3:
 	var rand = RandomNumberGenerator.new()
-	var idx = rand.randi_range(0, len(positionArray))
+	var idx = rand.randi_range(0, len(positionArray) - 1)
 	
 	return positionArray[idx].global_position
 
 func getRandEnemy() -> PackedScene:
 	var rand = RandomNumberGenerator.new()
-	var idx = rand.randi_range(0, len(enemyArray))
+	var idx = rand.randi_range(0, len(enemyArray) - 1)
 	
 	return enemyArray[idx]
 
@@ -29,9 +29,10 @@ func spawnEnemies(amount: int) -> void:
 		var enemyInstance: Node3D = enemy.instantiate()
 		enemyInstance.position = pos
 		add_child(enemyInstance)
+		await get_tree().create_timer(0.05).timeout
 
 func getCurrDayCount(currTime: float) -> int:
-	return int(ceil(environment.cycleLength / currTime))
+	return int(ceil(currTime / environment.cycleLength))
 
 func getEnemySpawnAmount(input: int) -> int:
 	return ceil(clamp(input ** 0.7, 0, 1e5)) * 3
