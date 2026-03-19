@@ -2,6 +2,8 @@
 extends RigidBody3D
 class_name DraggableBody
 
+@export var held: bool
+
 func _init() -> void:
 	angular_damp = 1
 

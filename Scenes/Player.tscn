@@ -7,10 +7,21 @@
 [ext_resource type="Script" uid="uid://nux5xsvujq74" path="res://Scripts/player/Interacter.gd" id="4_52ee3"]
 [ext_resource type="Texture2D" uid="uid://c0nvwh8tdbow7" path="res://Images/crosshair.png" id="4_dewec"]
 [ext_resource type="Script" uid="uid://b085n1mq1gsfj" path="res://Scripts/player/PauseScript.gd" id="5_5ixxa"]
+[ext_resource type="Script" uid="uid://cha64kp8gu2x3" path="res://Scripts/BuildMenu.gd" id="8_1e7my"]
 [ext_resource type="Script" uid="uid://d3m20iai2hh4e" path="res://Scripts/variableNodes/Money.gd" id="8_bhhdu"]
+[ext_resource type="Texture2D" uid="uid://cxby1t3prni8k" path="res://Images/BackBuild.png" id="8_miouo"]
 [ext_resource type="Texture2D" uid="uid://66llnjfjprto" path="res://Images/MoneyBag.png" id="8_yoq75"]
 [ext_resource type="Script" uid="uid://bvgqtmvqogc2w" path="res://Scripts/ui/MoneyLabel.gd" id="9_ksbbd"]
 [ext_resource type="Script" uid="uid://di4h3ferw3gly" path="res://Scripts/variableNodes/Health.gd" id="9_megsn"]
+[ext_resource type="Texture2D" uid="uid://b5nueh1h6ha5e" path="res://Images/Hole.png" id="9_o3h8g"]
+[ext_resource type="Script" uid="uid://bfro85wcsu7q5" path="res://Scripts/BuildBuilder.gd" id="12_glx4g"]
+[ext_resource type="Texture2D" uid="uid://ba1b8j7jispps" path="res://Images/BuildBG.png" id="16_5v66d"]
+[ext_resource type="Script" uid="uid://uo8vig14qyjw" path="res://Scripts/BuildItem.gd" id="17_m0x7a"]
+[ext_resource type="Texture2D" uid="uid://cr7h6jjub2xtm" path="res://Images/Hole$15.png" id="17_ulo2v"]
+[ext_resource type="Texture2D" uid="uid://b6mlfk4dp6tri" path="res://Images/1.png" id="18_1iu4k"]
+[ext_resource type="PackedScene" uid="uid://d0x4w5m5hku4u" path="res://Models/Hole/Hole.tscn" id="18_i2e8t"]
+[ext_resource type="FontFile" uid="uid://ytr7d41damwm" path="res://Resources/8x8pixelfont.ttf" id="21_x63xi"]
+[ext_resource type="Script" uid="uid://kbfntrjs4hdn" path="res://Scripts/UI/Text.gd" id="22_i2e8t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 
@@ -37,7 +48,16 @@ radius = 1.4
 [sub_resource type="SphereShape3D" id="SphereShape3D_dewec"]
 radius = 0.4
 
+[sub_resource type="SphereMesh" id="SphereMesh_glx4g"]
+radius = 0.25
+height = 0.25
+is_hemisphere = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3h8g"]
+texture = ExtResource("8_miouo")
+
 [node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("money", "health", "cam", "light") groups=["player"]]
+collision_mask = 3
 script = ExtResource("1_xhfnw")
 sprintSpeed = 7.0
 baseSpeed = 4.0
@@ -107,7 +127,25 @@ shapeUnheld = SubResource("SphereShape3D_dewec")
 process_mode = 3
 script = ExtResource("5_5ixxa")
 
-[node name="Control" type="Control" parent="." unique_id=1348109915]
+[node name="MoneyComponent" type="Node" parent="." unique_id=674261741]
+script = ExtResource("8_bhhdu")
+money = 9
+metadata/_custom_type_script = "uid://d3m20iai2hh4e"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1949866035]
+script = ExtResource("9_megsn")
+metadata/_custom_type_script = "uid://di4h3ferw3gly"
+
+[node name="BuildPosition" type="Node3D" parent="." unique_id=155911006 node_paths=PackedStringArray("cam")]
+script = ExtResource("12_glx4g")
+cam = NodePath("../Head/Cam")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="BuildPosition" unique_id=211134294]
+mesh = SubResource("SphereMesh_glx4g")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1151304745]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1348109915]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -116,7 +154,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1440990643]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1440990643]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -131,7 +169,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_dewec")
 
-[node name="Control" type="Control" parent="Control" unique_id=977216654]
+[node name="Control" type="Control" parent="CanvasLayer/Control" unique_id=977216654]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -142,7 +180,7 @@ offset_right = 96.0
 offset_bottom = -3.0
 grow_vertical = 0
 
-[node name="Money" type="Label" parent="Control/Control" unique_id=112067606 node_paths=PackedStringArray("moneyComponent")]
+[node name="Money" type="Label" parent="CanvasLayer/Control/Control" unique_id=112067606 node_paths=PackedStringArray("moneyComponent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -152,9 +190,9 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "$0"
 script = ExtResource("9_ksbbd")
-moneyComponent = NodePath("../../../MoneyComponent")
+moneyComponent = NodePath("../../../../MoneyComponent")
 
-[node name="MoneyBag" type="TextureRect" parent="Control/Control" unique_id=534241190]
+[node name="MoneyBag" type="TextureRect" parent="CanvasLayer/Control/Control" unique_id=534241190]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 2
@@ -165,13 +203,117 @@ offset_right = 24.0
 grow_vertical = 0
 texture = ExtResource("8_yoq75")
 
-[node name="MoneyComponent" type="Node" parent="." unique_id=674261741]
-script = ExtResource("8_bhhdu")
-metadata/_custom_type_script = "uid://d3m20iai2hh4e"
+[node name="Buildmenu" type="Control" parent="CanvasLayer/Control" unique_id=1348382947 node_paths=PackedStringArray("builder")]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -85.0
+offset_right = -5.0
+offset_bottom = 85.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("8_1e7my")
+builder = NodePath("../../../BuildPosition")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1949866035]
-script = ExtResource("9_megsn")
-metadata/_custom_type_script = "uid://di4h3ferw3gly"
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/Buildmenu" unique_id=611509051]
+z_index = -5
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_o3h8g")
+
+[node name="ScrollContainer" type="VBoxContainer" parent="CanvasLayer/Control/Buildmenu/Panel" unique_id=106463315]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 10.0
+offset_right = -8.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="Hole" type="TextureRect" parent="CanvasLayer/Control/Buildmenu/Panel/ScrollContainer" unique_id=526833024 node_paths=PackedStringArray("builder")]
+layout_mode = 2
+texture = ExtResource("16_5v66d")
+stretch_mode = 2
+script = ExtResource("17_m0x7a")
+scene = ExtResource("18_i2e8t")
+pressNum = &"1"
+builder = NodePath("../../../../../../BuildPosition")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Buildmenu/Panel/ScrollContainer/Hole" unique_id=121463971]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -12.0
+offset_right = 46.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Buildmenu/Panel/ScrollContainer/Hole/HBoxContainer" unique_id=2061757400]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("9_o3h8g")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Label" type="TextureRect" parent="CanvasLayer/Control/Buildmenu/Panel/ScrollContainer/Hole/HBoxContainer" unique_id=1414733396]
+layout_mode = 2
+texture = ExtResource("17_ulo2v")
+stretch_mode = 3
+
+[node name="Press" type="TextureRect" parent="CanvasLayer/Control/Buildmenu/Panel/ScrollContainer/Hole/HBoxContainer" unique_id=609901392]
+layout_mode = 2
+texture = ExtResource("18_1iu4k")
+stretch_mode = 3
+
+[node name="Text" type="Control" parent="CanvasLayer/Control" unique_id=1590479965]
+layout_mode = 1
+anchor_top = 0.84400004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -4.9200134
+offset_right = -64.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Text" unique_id=2079295716]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("21_x63xi")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("22_i2e8t")
 
 [connection signal="dragging" from="Head/DragDetector" to="DragNode" method="drag"]
 [connection signal="endDragging" from="Head/DragDetector" to="DragNode" method="_stopDrag"]

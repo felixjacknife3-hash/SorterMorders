@@ -1,0 +1,420 @@
+[gd_scene format=3 uid="uid://dxo43j4m0kq68"]
+
+[ext_resource type="Script" uid="uid://cuhebgvknjeur" path="res://Scripts/player/PlayerController.gd" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://b5xubk2yelrht" path="res://Scripts/player/Dragger.gd" id="2_kpjcp"]
+[ext_resource type="Script" uid="uid://xt0hg1vn1ipf" path="res://Scripts/player/Head.gd" id="2_nn08x"]
+[ext_resource type="Script" uid="uid://8op6mltt5jbn" path="res://Scripts/player/DraggingNode.gd" id="3_gntrk"]
+[ext_resource type="Script" uid="uid://nux5xsvujq74" path="res://Scripts/player/Interacter.gd" id="4_52ee3"]
+[ext_resource type="Texture2D" uid="uid://c0nvwh8tdbow7" path="res://Images/crosshair.png" id="4_dewec"]
+[ext_resource type="Script" uid="uid://b085n1mq1gsfj" path="res://Scripts/player/PauseScript.gd" id="5_5ixxa"]
+[ext_resource type="Script" uid="uid://cha64kp8gu2x3" path="res://Scripts/BuildMenu.gd" id="8_1e7my"]
+[ext_resource type="Script" uid="uid://d3m20iai2hh4e" path="res://Scripts/variableNodes/Money.gd" id="8_bhhdu"]
+[ext_resource type="Texture2D" uid="uid://cxby1t3prni8k" path="res://Images/BackBuild.png" id="8_miouo"]
+[ext_resource type="Texture2D" uid="uid://66llnjfjprto" path="res://Images/MoneyBag.png" id="8_yoq75"]
+[ext_resource type="PackedScene" uid="uid://3laej1nsk87o" path="res://Models/Hole/Hole.glb" id="9_arntx"]
+[ext_resource type="Script" uid="uid://bvgqtmvqogc2w" path="res://Scripts/ui/MoneyLabel.gd" id="9_ksbbd"]
+[ext_resource type="Script" uid="uid://di4h3ferw3gly" path="res://Scripts/variableNodes/Health.gd" id="9_megsn"]
+[ext_resource type="Texture2D" uid="uid://b5nueh1h6ha5e" path="res://Images/Hole.png" id="9_o3h8g"]
+[ext_resource type="Script" uid="uid://bfro85wcsu7q5" path="res://Scripts/BuildBuilder.gd" id="12_glx4g"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xhfnw"]
+radial_segments = 12
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xhfnw"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0, 0, 1)
+grow_amount = -2.069
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhfnw"]
+material = SubResource("StandardMaterial3D_xhfnw")
+size = Vector3(1, 0.5, 0.6)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kpjcp"]
+radius = 0.4
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3h8g"]
+texture = ExtResource("8_miouo")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_miouo"]
+bg_color = Color(0.9764706, 0.43137255, 0.105882354, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gntrk"]
+radius = 1.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dewec"]
+radius = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_glx4g"]
+radius = 0.25
+height = 0.25
+is_hemisphere = true
+
+[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("money", "health", "cam", "light") groups=["player"]]
+collision_mask = 3
+script = ExtResource("1_xhfnw")
+sprintSpeed = 7.0
+baseSpeed = 4.0
+jumpVel = 3.5
+bHopResetTime = 0.3
+money = NodePath("MoneyComponent")
+health = NodePath("HealthComponent")
+cam = NodePath("Head/Cam")
+light = NodePath("Head/Light")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=607986907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_xhfnw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=888354271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_xhfnw")
+
+[node name="Head" type="Node3D" parent="." unique_id=800694193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_nn08x")
+
+[node name="Face" type="MeshInstance3D" parent="Head" unique_id=13010648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+gi_mode = 2
+mesh = SubResource("BoxMesh_xhfnw")
+
+[node name="Cam" type="Camera3D" parent="Head" unique_id=317463938]
+current = true
+
+[node name="Light" type="SpotLight3D" parent="Head" unique_id=1571608150]
+shadow_enabled = true
+spot_range = 1000.0
+spot_angle = 24.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Head/Light" unique_id=1978001799]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
+light_energy = 0.5
+shadow_enabled = true
+omni_range = 4.0
+
+[node name="DragDetector" type="ShapeCast3D" parent="Head" unique_id=1724953027]
+shape = SubResource("SphereShape3D_kpjcp")
+target_position = Vector3(0, 0, -4)
+script = ExtResource("2_kpjcp")
+
+[node name="DragAt" type="Marker3D" parent="Head" unique_id=190992176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3)
+
+[node name="InteractCast" type="RayCast3D" parent="Head" unique_id=308453791]
+target_position = Vector3(0, 0, -4)
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("4_52ee3")
+
+[node name="Control" type="Control" parent="." unique_id=1348109915]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1440990643]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_dewec")
+
+[node name="Control" type="Control" parent="Control" unique_id=977216654]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -27.0
+offset_right = 96.0
+offset_bottom = -3.0
+grow_vertical = 0
+
+[node name="Money" type="Label" parent="Control/Control" unique_id=112067606 node_paths=PackedStringArray("moneyComponent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "$0"
+script = ExtResource("9_ksbbd")
+moneyComponent = NodePath("../../../MoneyComponent")
+
+[node name="MoneyBag" type="TextureRect" parent="Control/Control" unique_id=534241190]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 24.0
+grow_vertical = 0
+texture = ExtResource("8_yoq75")
+
+[node name="Buildmenu" type="Control" parent="Control" unique_id=1348382947 node_paths=PackedStringArray("builder")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -95.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 175.0
+grow_horizontal = 0
+script = ExtResource("8_1e7my")
+builder = NodePath("../../BuildPosition")
+buildingScene = ExtResource("9_arntx")
+
+[node name="Panel" type="Panel" parent="Control/Buildmenu" unique_id=611509051]
+z_index = -5
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1000.0
+offset_right = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_o3h8g")
+
+[node name="ScrollContainer" type="VBoxContainer" parent="Control/Buildmenu/Panel" unique_id=106463315]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = -6.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="Hole" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer" unique_id=846323219]
+z_index = -2
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="Panel" type="Panel" parent="Control/Buildmenu/Panel/ScrollContainer/Hole" unique_id=757623421]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_miouo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buildmenu/Panel/ScrollContainer/Hole" unique_id=121463971]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/Buildmenu/Panel/ScrollContainer/Hole/HBoxContainer" unique_id=2061757400]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("9_o3h8g")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer/Hole/HBoxContainer" unique_id=1923106734]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "Hole - $15"
+
+[node name="Press" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer/Hole/HBoxContainer" unique_id=1659380362]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = " 1 "
+
+[node name="Hole2" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer" unique_id=661393628]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="Panel" type="Panel" parent="Control/Buildmenu/Panel/ScrollContainer/Hole2" unique_id=538156740]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_miouo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buildmenu/Panel/ScrollContainer/Hole2" unique_id=242116368]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/Buildmenu/Panel/ScrollContainer/Hole2/HBoxContainer" unique_id=707037925]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("9_o3h8g")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer/Hole2/HBoxContainer" unique_id=2081066423]
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+text = "Hole - $15"
+
+[node name="Label2" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer/Hole2/HBoxContainer" unique_id=1709317173]
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+text = "PRESS 1"
+
+[node name="Hole3" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer" unique_id=934340992]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="Panel" type="Panel" parent="Control/Buildmenu/Panel/ScrollContainer/Hole3" unique_id=620613403]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_miouo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buildmenu/Panel/ScrollContainer/Hole3" unique_id=921896737]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/Buildmenu/Panel/ScrollContainer/Hole3/HBoxContainer" unique_id=1284826811]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("9_o3h8g")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer/Hole3/HBoxContainer" unique_id=1016064225]
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+text = "Hole - $15"
+
+[node name="Label2" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer/Hole3/HBoxContainer" unique_id=957539220]
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+text = "PRESS 1"
+
+[node name="Robot" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer" unique_id=1065726501]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="Panel" type="Panel" parent="Control/Buildmenu/Panel/ScrollContainer/Robot" unique_id=1039879776]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_miouo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buildmenu/Panel/ScrollContainer/Robot" unique_id=1424036385]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/Buildmenu/Panel/ScrollContainer/Robot/HBoxContainer" unique_id=775753682]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("9_o3h8g")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer/Robot/HBoxContainer" unique_id=1139699868]
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+text = "Hole - $15"
+
+[node name="Label2" type="Label" parent="Control/Buildmenu/Panel/ScrollContainer/Robot/HBoxContainer" unique_id=198360132]
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+text = "PRESS 1"
+
+[node name="DragNode" type="Node" parent="." unique_id=414226753 node_paths=PackedStringArray("ray", "dragTo")]
+script = ExtResource("3_gntrk")
+ray = NodePath("../Head/DragDetector")
+dragTo = NodePath("../Head/DragAt")
+strength = 400.0
+damping = 4.0
+shapeHeld = SubResource("SphereShape3D_gntrk")
+shapeUnheld = SubResource("SphereShape3D_dewec")
+
+[node name="Pauser" type="Node" parent="." unique_id=1229595254]
+process_mode = 3
+script = ExtResource("5_5ixxa")
+
+[node name="MoneyComponent" type="Node" parent="." unique_id=674261741]
+script = ExtResource("8_bhhdu")
+money = 9
+metadata/_custom_type_script = "uid://d3m20iai2hh4e"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1949866035]
+script = ExtResource("9_megsn")
+metadata/_custom_type_script = "uid://di4h3ferw3gly"
+
+[node name="BuildPosition" type="Node3D" parent="." unique_id=155911006 node_paths=PackedStringArray("cam")]
+script = ExtResource("12_glx4g")
+cam = NodePath("../Head/Cam")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="BuildPosition" unique_id=211134294]
+mesh = SubResource("SphereMesh_glx4g")
+
+[connection signal="dragging" from="Head/DragDetector" to="DragNode" method="drag"]
+[connection signal="endDragging" from="Head/DragDetector" to="DragNode" method="_stopDrag"]

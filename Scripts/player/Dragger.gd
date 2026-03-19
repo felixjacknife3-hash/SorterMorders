@@ -2,6 +2,7 @@ extends ShapeCast3D
 class_name dragRay
 
 var justEndDrag = false
+var body: DraggableBody
 
 signal dragging(dragObject: DraggableBody)
 signal endDragging
@@ -18,9 +19,23 @@ func startDrag():
 	for i in get_collision_count():
 		var rayResult = get_collider(i)
 		if rayResult is DraggableBody:
-			dragging.emit(rayResult)
-			break
+			if body and rayResult == body:
+				rayResult.held = true
+				body = rayResult
+				dragging.emit(rayResult)
+				break
+			elif not body:
+				rayResult.held = true
+				body = rayResult
+				dragging.emit(rayResult)
+				break
+			else:
+				continue
+			
 
 func endDrag():
+	if body:
+		body.held = false
+	body = null
 	justEndDrag = true
 	endDragging.emit()

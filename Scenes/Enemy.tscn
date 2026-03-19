@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://cw6cdkuho7jqo"]
 
-[ext_resource type="Script" uid="uid://3ef0p53nhlkj" path="res://Enemy.gd" id="1_kmopr"]
+[ext_resource type="Script" uid="uid://3ef0p53nhlkj" path="res://Scripts/Enemy.gd" id="1_kmopr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kmopr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qvbvf"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1110687441 node_paths=PackedStringArray("navAgent")]
+collision_layer = 5
 script = ExtResource("1_kmopr")
 speed = 4.0
 navAgent = NodePath("NavigationAgent3D")

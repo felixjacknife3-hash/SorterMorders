@@ -11,6 +11,7 @@ data = PackedVector3Array(-63.8652, 3.2020998, -47.822, -64, 2.2233, -64, -47.98
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=616720746]
 shape = SubResource("ConcavePolygonShape3D_5ojiv")
+debug_color = Color(0.44150087, 0.4097679, 1, 1)
 
 [node name="terrain" parent="." unique_id=1397187792 instance=ExtResource("1_5ojiv")]
 

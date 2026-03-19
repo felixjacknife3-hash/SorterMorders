@@ -8,4 +8,6 @@ func addMoney(amount: int) -> void:
 	money += amount
 
 func subtractMoney(amount: int) -> void:
-	money -= amount
+	var subtractedAmount = money - amount
+	if subtractedAmount < 0: return
+	money = subtractedAmount

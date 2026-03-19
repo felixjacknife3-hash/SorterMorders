@@ -2,15 +2,22 @@
 
 [ext_resource type="Script" uid="uid://cirhc2cc42l6x" path="res://Scripts/misc/Interactable.gd" id="1_8s0t8"]
 [ext_resource type="Script" uid="uid://bg54dbolsoeyk" path="res://Scripts/Box.gd" id="1_mckbn"]
-[ext_resource type="PackedScene" uid="uid://r7bg8y7y8om5" path="res://Models/Box/Box.glb" id="2_42nxc"]
+[ext_resource type="PackedScene" uid="uid://qphptmcqweir" path="res://Models/Box/Box.glb" id="2_42nxc"]
+[ext_resource type="PackedScene" uid="uid://boonuc8sqj4w7" path="res://Scenes/DragBox.tscn" id="2_cmh7u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_42nxc"]
-size = Vector3(1, 1.2, 1.2)
+size = Vector3(1, 1.1, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmh7u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mckbn"]
+size = Vector3(1, 4, 1)
 
-[node name="Box" type="Node3D" unique_id=79304096]
+[node name="Box" type="Node3D" unique_id=79304096 node_paths=PackedStringArray("spawnPoint")]
 script = ExtResource("1_mckbn")
+itemArray = Array[PackedScene]([ExtResource("2_cmh7u")])
+chancesArray = Array[int]([100])
+spawnPoint = NodePath("SpawnPoint")
 
 [node name="Interactable" type="Area3D" parent="." unique_id=643037805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -18,13 +25,27 @@ script = ExtResource("1_8s0t8")
 metadata/_custom_type_script = "uid://cirhc2cc42l6x"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=2027606422]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.100000024, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04999999, 0)
 shape = SubResource("BoxShape3D_42nxc")
 
-[node name="Box" parent="." unique_id=614990546 instance=ExtResource("2_42nxc")]
+[node name="Box" parent="." unique_id=1585490978 instance=ExtResource("2_42nxc")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=372982512]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=35652216]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_cmh7u")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=668293083]
+collision_layer = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1403391959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("BoxShape3D_mckbn")
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=423396879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4000001, 0)
+
+[connection signal="interacted" from="Interactable" to="." method="interacted"]
+
+[editable path="Box"]
