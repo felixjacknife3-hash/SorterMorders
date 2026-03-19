@@ -10,4 +10,4 @@ class_name BuildItem
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed(pressNum):
 		builder.setScene(scene)
-		builder.price = price
+		builder.setPrice(price)

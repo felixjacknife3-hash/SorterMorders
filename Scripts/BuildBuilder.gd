@@ -5,6 +5,7 @@ class_name Builder
 @export var rayLength: float = 20
 @export var building: bool
 @export var money: MoneyComponent
+@export var shape: CylinderShape3D
 
 var currScene: PackedScene = null
 var sceneInstance: Node3D = null
@@ -38,19 +39,36 @@ func setPrice(priceAmount: int) -> void:
 	price = priceAmount
 
 func place() -> void:
+	if !building: return
+	
+	#point check
+	#region
 	var point = PhysicsPointQueryParameters3D.new()
-	point.position = self.global_position
+	point.position = self.global_position + (Vector3.UP / 10)
 	var space = get_world_3d().direct_space_state
 	var pointResults = space.intersect_point(point)
 	if !pointResults.is_empty():
 		TellInfo.sendPlayerInfo("[color=red]!You cannot place that there![/color]")
 		return
-	sceneInstance.reparent(get_parent_node_3d().get_parent_node_3d())
+	var shapeCheck = PhysicsShapeQueryParameters3D.new()
+	shapeCheck.shape = shape
+	shapeCheck.transform = Transform3D(Basis(), global_position + ((transform.basis.y * (shape.height / 2)) + (transform.basis.y * 0.2)))#              
+	var shapeResults = space.intersect_shape(shapeCheck)
+	if !shapeResults.is_empty():
+		print("shape")
+		TellInfo.sendPlayerInfo("[color=red]!You cannot place that there![/color]")
+		return
+	#endregion
+	
+	if !money.subtractMoney(price):
+		TellInfo.sendPlayerInfo("[color=red]!You cant buy that![/color]")
+		return
+	
 	if sceneInstance:
 		if sceneInstance.has_method("setCollision"):
-			print("collide")
 			sceneInstance.setCollision(true)
-	money.subtractMoney(price)
+	
+	sceneInstance.reparent(get_parent_node_3d().get_parent_node_3d())
 	sceneInstance = null
 
 #region

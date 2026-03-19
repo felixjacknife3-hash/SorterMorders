@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://b6mlfk4dp6tri" path="res://Images/1.png" id="18_1iu4k"]
 [ext_resource type="PackedScene" uid="uid://d0x4w5m5hku4u" path="res://Models/Hole/Hole.tscn" id="18_i2e8t"]
 [ext_resource type="FontFile" uid="uid://ytr7d41damwm" path="res://Resources/8x8pixelfont.ttf" id="21_x63xi"]
-[ext_resource type="Script" uid="uid://kbfntrjs4hdn" path="res://Scripts/UI/Text.gd" id="22_i2e8t"]
+[ext_resource type="Script" uid="uid://kbfntrjs4hdn" path="res://Scripts/ui/Text.gd" id="22_i2e8t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 
@@ -47,6 +47,10 @@ radius = 1.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dewec"]
 radius = 0.4
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x63xi"]
+height = 1.0
+radius = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_glx4g"]
 radius = 0.25
@@ -136,9 +140,11 @@ metadata/_custom_type_script = "uid://d3m20iai2hh4e"
 script = ExtResource("9_megsn")
 metadata/_custom_type_script = "uid://di4h3ferw3gly"
 
-[node name="BuildPosition" type="Node3D" parent="." unique_id=155911006 node_paths=PackedStringArray("cam")]
+[node name="BuildPosition" type="Node3D" parent="." unique_id=155911006 node_paths=PackedStringArray("cam", "money")]
 script = ExtResource("12_glx4g")
 cam = NodePath("../Head/Cam")
+money = NodePath("../MoneyComponent")
+shape = SubResource("CylinderShape3D_x63xi")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="BuildPosition" unique_id=211134294]
 mesh = SubResource("SphereMesh_glx4g")
@@ -188,7 +194,9 @@ anchor_bottom = 1.0
 offset_left = 25.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("21_x63xi")
 text = "$0"
+vertical_alignment = 1
 script = ExtResource("9_ksbbd")
 moneyComponent = NodePath("../../../../MoneyComponent")
 

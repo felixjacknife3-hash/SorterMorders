@@ -7,7 +7,8 @@ class_name MoneyComponent
 func addMoney(amount: int) -> void:
 	money += amount
 
-func subtractMoney(amount: int) -> void:
+func subtractMoney(amount: int) -> bool:
 	var subtractedAmount = money - amount
-	if subtractedAmount < 0: return
+	if subtractedAmount < 0: return false
 	money = subtractedAmount
+	return true
