@@ -11,9 +11,11 @@ func setPlayer() -> void:
 		plr = get_tree().get_first_node_in_group("player")
 
 func setTarget() -> void:
+	if !navAgent: return
 	navAgent.target_position = plr.position
 
 func getMoveDir() -> Vector3:
+	if !navAgent: return Vector3(0, 0, 0)
 	var currPos = global_position
 	var targetPos = navAgent.get_next_path_position()
 	

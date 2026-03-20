@@ -6,8 +6,9 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qvbvf"]
 
-[node name="Enemy" type="CharacterBody3D" unique_id=1110687441 node_paths=PackedStringArray("navAgent")]
+[node name="Enemy" type="CharacterBody3D" unique_id=1110687441 node_paths=PackedStringArray("navAgent") groups=["enemy"]]
 collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_kmopr")
 speed = 4.0
 navAgent = NodePath("NavigationAgent3D")
@@ -16,8 +17,11 @@ navAgent = NodePath("NavigationAgent3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_kmopr")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1188657540]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1188657540 groups=["enemy"]]
+avoidance_enabled = true
 height = 2.0
+radius = 0.55
+neighbor_distance = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=361971102]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

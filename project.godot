@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg")
 
 player=""
 sellables=""
+enemy=""
 
 [gui]
 

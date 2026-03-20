@@ -3,17 +3,18 @@ class_name Collector
 
 var currBody: SellableDraggableBody
 
-func areaEntered(body):
-	if body is SellableDraggableBody:
-		var plr = getPlayer()
-		if not plr: return
-		while body:
-			if not body.held:
-				plr.money.addMoney(body.price)
-				await get_tree().create_timer(0.2).timeout
-				if body:
-					body.queue_free()
-			await get_tree().create_timer(0.1).timeout
+func areaEntered(body) -> void:
+	if !(body is SellableDraggableBody): return
+	currBody = body
+	var plr = getPlayer()
+	if not plr: return
+	while currBody:
+		if not currBody.held:
+			plr.money.addMoney(currBody.price)
+			await get_tree().create_timer(0.2).timeout
+			if currBody:
+				currBody.queue_free()
+		await get_tree().create_timer(0.1).timeout
 
 func areaLeft(_body):
 	currBody = null

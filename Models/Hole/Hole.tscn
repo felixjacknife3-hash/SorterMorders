@@ -37,5 +37,6 @@ collision_mask = 6
 shape = SubResource("ConvexPolygonShape3D_5ev14")
 
 [connection signal="body_entered" from="." to="." method="areaEntered"]
+[connection signal="body_exited" from="." to="." method="areaLeft"]
 
 [editable path="Hole"]

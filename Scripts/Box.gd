@@ -58,16 +58,21 @@ func getRandPopOut(
 
 # Take Money
 #region
-func sell(amount: int) -> void:
-	if not plr: return
-	plr.money.subtractMoney(amount)
+func sell(amount: int) -> bool:
+	if not plr: return false
+	return plr.money.subtractMoney(amount)
 
 func buyBox() -> void:
 	var randItem: PackedScene = getRandItem()
 	var instance = randItem.instantiate()
 	if instance is SellableDraggableBody:
-		if plr.money.money < 3: return
-		sell(3)
+		var rand = RandomNumberGenerator.new()
+		rand.randomize()
+		var price = rand.randi_range(2, 6)
+		if plr.money.money < price: return
+		
+		if !sell(price):
+			return
 		
 		var linearForce = getRandPopOut(8, 1, 1.5, 1.5)
 		var angularForce = getRandPopOut(0, 1, 1, 1)

@@ -34,6 +34,12 @@ var jumps := 0
 var bHopTimer: float = 0
 var currBHopMulti := 1.0
 
+func _ready() -> void:
+	Console.add_command("killallenemies", killEnemies)
+
+func killEnemies():
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy.queue_free()
 
 func _physics_process(delta: float) -> void:
 	if environment:

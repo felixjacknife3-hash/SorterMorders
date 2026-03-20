@@ -15,11 +15,9 @@ var price := 0
 func _process(_delta: float) -> void:
 	shootRay()
 	if building:
-		if not sceneInstance: return
-		sceneInstance.show()
+		show()
 	else:
-		if not sceneInstance: return
-		sceneInstance.hide()
+		hide()
 	if Input.is_action_just_pressed("Place"):
 		place()
 
@@ -41,7 +39,7 @@ func setPrice(priceAmount: int) -> void:
 func place() -> void:
 	if !building: return
 	
-	#point check
+	#point and shape check
 	#region
 	var point = PhysicsPointQueryParameters3D.new()
 	point.position = self.global_position + (Vector3.UP / 10)
@@ -50,9 +48,10 @@ func place() -> void:
 	if !pointResults.is_empty():
 		TellInfo.sendPlayerInfo("[color=red]!You cannot place that there![/color]")
 		return
+	
 	var shapeCheck = PhysicsShapeQueryParameters3D.new()
 	shapeCheck.shape = shape
-	shapeCheck.transform = Transform3D(Basis(), global_position + ((transform.basis.y * (shape.height / 2)) + (transform.basis.y * 0.2)))#              
+	shapeCheck.transform *= Transform3D(Basis(), global_position + ((transform.basis.y * (shape.height / 2)) + (transform.basis.y * 0.2)))#              
 	var shapeResults = space.intersect_shape(shapeCheck)
 	if !shapeResults.is_empty():
 		print("shape")
@@ -60,6 +59,7 @@ func place() -> void:
 		return
 	#endregion
 	
+	#money check
 	if !money.subtractMoney(price):
 		TellInfo.sendPlayerInfo("[color=red]!You cant buy that![/color]")
 		return
@@ -71,6 +71,7 @@ func place() -> void:
 	sceneInstance.reparent(get_parent_node_3d().get_parent_node_3d())
 	sceneInstance = null
 
+#go pos
 #region
 func isNormalAllowed(normal: Vector3, XZMinMax) -> bool:
 	var withinX = normal.x > -XZMinMax and normal.x < XZMinMax
