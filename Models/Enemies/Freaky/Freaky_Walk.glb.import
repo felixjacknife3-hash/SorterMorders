@@ -4,12 +4,12 @@ importer="animation_library"
 importer_version=1
 type="AnimationLibrary"
 uid="uid://b1a20bfhrgmpr"
-path="res://.godot/imported/Freaky_Walk.glb-1dced1580cafcc7e9816a56eec0caa5b.res"
+path="res://.godot/imported/Freaky_Walk.glb-045319b0d0e2ea211e5cff8916952dc7.res"
 
 [deps]
 
-source_file="res://Models/Enemies/Epstein/Freaky_Walk.glb"
-dest_files=["res://.godot/imported/Freaky_Walk.glb-1dced1580cafcc7e9816a56eec0caa5b.res"]
+source_file="res://Models/Enemies/Freaky/Freaky_Walk.glb"
+dest_files=["res://.godot/imported/Freaky_Walk.glb-045319b0d0e2ea211e5cff8916952dc7.res"]
 
 [params]
 

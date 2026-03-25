@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c10tvtvxj33li"]
 
 [ext_resource type="Script" uid="uid://3ef0p53nhlkj" path="res://Scripts/Enemy.gd" id="1_clk7l"]
-[ext_resource type="PackedScene" uid="uid://csv01bg0yiw38" path="res://Models/Enemies/Epstein/Freaky.glb" id="2_p6r5x"]
-[ext_resource type="AnimationLibrary" uid="uid://b1a20bfhrgmpr" path="res://Models/Enemies/Epstein/Freaky_Walk.glb" id="3_3mbvc"]
-[ext_resource type="Texture2D" uid="uid://cr116wnq8b3gy" path="res://Models/Enemies/Epstein/EnemyTex.png" id="3_rhm0d"]
+[ext_resource type="PackedScene" uid="uid://csv01bg0yiw38" path="res://Models/Enemies/Freaky/Freaky.glb" id="2_p6r5x"]
+[ext_resource type="AnimationLibrary" uid="uid://b1a20bfhrgmpr" path="res://Models/Enemies/Freaky/Freaky_Walk.glb" id="3_3mbvc"]
+[ext_resource type="Texture2D" uid="uid://cr116wnq8b3gy" path="res://Models/Enemies/Freaky/EnemyTex.png" id="3_rhm0d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jp78m"]
 albedo_texture = ExtResource("3_rhm0d")

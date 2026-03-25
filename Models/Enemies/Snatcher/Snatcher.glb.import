@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://csv01bg0yiw38"
-path="res://.godot/imported/Freaky.glb-c0ea8ea9381c1d552c2d16e33282bbd6.scn"
+uid="uid://b4oj04htij37o"
+path="res://.godot/imported/Snatcher.glb-97d6f7c810c1008215020442ae3da2b4.scn"
 
 [deps]
 
-source_file="res://Models/Enemies/Epstein/Freaky.glb"
-dest_files=["res://.godot/imported/Freaky.glb-c0ea8ea9381c1d552c2d16e33282bbd6.scn"]
+source_file="res://Models/Enemies/Snatcher/Snatcher.glb"
+dest_files=["res://.godot/imported/Snatcher.glb-97d6f7c810c1008215020442ae3da2b4.scn"]
 
 [params]
 
@@ -37,13 +37,6 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"materials": {
-"@MATERIAL:0": {
-"use_external/enabled": true,
-"use_external/path": "uid://dpcwji3u1ivjr"
-}
-}
-}
+_subresources={}
 gltf/naming_version=2
 gltf/embedded_image_handling=1

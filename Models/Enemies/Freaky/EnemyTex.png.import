@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr116wnq8b3gy"
-path.s3tc="res://.godot/imported/EnemyTex.png-7817368df476f750dc3d023e133dc719.s3tc.ctex"
+path.s3tc="res://.godot/imported/EnemyTex.png-ea5d5629ca3325a7408b8f9c5b10f3ca.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Models/Enemies/Epstein/EnemyTex.png"
-dest_files=["res://.godot/imported/EnemyTex.png-7817368df476f750dc3d023e133dc719.s3tc.ctex"]
+source_file="res://Models/Enemies/Freaky/EnemyTex.png"
+dest_files=["res://.godot/imported/EnemyTex.png-ea5d5629ca3325a7408b8f9c5b10f3ca.s3tc.ctex"]
 
 [params]
 
