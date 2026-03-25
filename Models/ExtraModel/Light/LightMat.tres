@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c6scxhng42fxk"]
+
+[ext_resource type="Texture2D" uid="uid://bsnjnv3m4n5t6" path="res://Models/ExtraModel/Light/rusty_metal_04_diff_1k.jpg" id="1_c0i2k"]
+
+[resource]
+albedo_texture = ExtResource("1_c0i2k")
+metallic = 0.35

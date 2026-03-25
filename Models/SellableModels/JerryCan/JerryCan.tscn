@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b501do8jgumc7"]
+
+[ext_resource type="Script" uid="uid://dbtxh5w6nkiqr" path="res://Scripts/drag/SellDragBody.gd" id="1_o3wwv"]
+[ext_resource type="PackedScene" uid="uid://df65yreqf11ob" path="res://Models/SellableModels/JerryCan/JerryCan.glb" id="2_ke4yu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hdep2"]
+size = Vector3(0.48, 0.93, 0.64)
+
+[node name="JerryCan" type="RigidBody3D" unique_id=591851536]
+script = ExtResource("1_o3wwv")
+price = 25.0
+metadata/_custom_type_script = "uid://dbtxh5w6nkiqr"
+
+[node name="JerryCan" parent="." unique_id=36349503 instance=ExtResource("2_ke4yu")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2027747875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4901161e-08, 0.059999987, 0)
+shape = SubResource("BoxShape3D_hdep2")

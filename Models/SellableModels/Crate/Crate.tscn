@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://d0706frcj6kcx"]
+
+[ext_resource type="Script" uid="uid://dbtxh5w6nkiqr" path="res://Scripts/drag/SellDragBody.gd" id="1_ligkh"]
+[ext_resource type="PackedScene" uid="uid://cts3f5u5840m1" path="res://Models/SellableModels/Crate/Crate.glb" id="2_is4lb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hljaa"]
+
+[node name="Crate" type="RigidBody3D" unique_id=907339915]
+script = ExtResource("1_ligkh")
+price = 10.0
+metadata/_custom_type_script = "uid://dbtxh5w6nkiqr"
+
+[node name="Crate" parent="." unique_id=332914405 instance=ExtResource("2_is4lb")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=493801594]
+shape = SubResource("BoxShape3D_hljaa")

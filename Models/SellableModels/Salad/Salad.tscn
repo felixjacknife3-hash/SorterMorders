@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cvqunfrnuyhvb"]
+
+[ext_resource type="Script" uid="uid://dbtxh5w6nkiqr" path="res://Scripts/drag/SellDragBody.gd" id="1_dyj6v"]
+[ext_resource type="PackedScene" uid="uid://dt5wib68geucu" path="res://Models/SellableModels/Salad/Salad.glb" id="2_xcuk8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dyj6v"]
+height = 0.4
+radius = 0.3
+
+[node name="Salad" type="RigidBody3D" unique_id=672705763]
+continuous_cd = true
+script = ExtResource("1_dyj6v")
+price = 100.0
+metadata/_custom_type_script = "uid://dbtxh5w6nkiqr"
+
+[node name="Salad" parent="." unique_id=1789458450 instance=ExtResource("2_xcuk8")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.11, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1264594659]
+shape = SubResource("CylinderShape3D_dyj6v")

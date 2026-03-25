@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c4px04uw431vn"]
+
+[ext_resource type="PackedScene" uid="uid://2q1uq2akdxxx" path="res://Models/ExtraModel/Light/Light.glb" id="1_hao85"]
+
+[node name="Light" type="Node3D" unique_id=1178898386]
+
+[node name="Light" parent="." unique_id=1820042867 instance=ExtResource("1_hao85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0000002, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1403060845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8000001, 0)
+light_energy = 0.8
+shadow_enabled = true

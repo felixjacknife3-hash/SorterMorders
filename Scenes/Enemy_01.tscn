@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c10tvtvxj33li"]
+
+[ext_resource type="Script" uid="uid://3ef0p53nhlkj" path="res://Scripts/Enemy.gd" id="1_clk7l"]
+[ext_resource type="PackedScene" uid="uid://csv01bg0yiw38" path="res://Models/Enemies/Epstein/Freaky.glb" id="2_p6r5x"]
+[ext_resource type="AnimationLibrary" uid="uid://b1a20bfhrgmpr" path="res://Models/Enemies/Epstein/Freaky_Walk.glb" id="3_3mbvc"]
+[ext_resource type="Texture2D" uid="uid://cr116wnq8b3gy" path="res://Models/Enemies/Epstein/EnemyTex.png" id="3_rhm0d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jp78m"]
+albedo_texture = ExtResource("3_rhm0d")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6a7y"]
+albedo_texture = ExtResource("3_rhm0d")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rhm0d"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1739616107 node_paths=PackedStringArray("navAgent", "animPlr") groups=["enemy"]]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_clk7l")
+navAgent = NodePath("NavigationAgent3D")
+animPlr = NodePath("BadGuy_01/AnimationPlayer")
+walk = &"Epstein_Walk/Walk"
+metadata/_custom_type_script = "uid://3ef0p53nhlkj"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1380618074]
+avoidance_enabled = true
+
+[node name="BadGuy_01" parent="." unique_id=1000750366 instance=ExtResource("2_p6r5x")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+
+[node name="Cube_001" parent="BadGuy_01/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1000750366, 1502353596) index="0" unique_id=1787784929]
+material_override = SubResource("StandardMaterial3D_jp78m")
+surface_material_override/0 = SubResource("StandardMaterial3D_y6a7y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BadGuy_01" unique_id=318718160]
+libraries/Epstein_Walk = ExtResource("3_3mbvc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1706979006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_rhm0d")
+
+[editable path="BadGuy_01"]

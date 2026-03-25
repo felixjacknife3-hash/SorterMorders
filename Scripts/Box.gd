@@ -17,25 +17,25 @@ func _ready() -> void:
 #region
 func getTotalChances() -> int:
 	var total: int = 0
-	for num in chancesArray:
-		total += num
+	for num in range(len(chancesArray)):
+		total += chancesArray[num]
 	return total
 
 func getTotalFromIndex(idx: int) -> int:
 	var total: int = 0
-	for i in range(idx):
+	for i in range(idx + 1):
 		total += chancesArray[i]
 	return total
 
-func getRandItem() -> PackedScene:
+func getRandItem() -> Dictionary:
 	var rand = RandomNumberGenerator.new()
 	var totalChances = getTotalChances()
 	var randNum = rand.randi_range(0, totalChances)
 	
 	for i in range(len(chancesArray)):
-		if randNum >= getTotalFromIndex(i):
-			return itemArray[i]
-	return null
+		if !(randNum <= getTotalFromIndex(i)): continue
+		return {"scene":itemArray[i], "num":randNum, "total":totalChances}
+	return {"scene":null, "num":randNum, "total":totalChances}
 
 func getRandPopOut(
 	baseY: float, 
@@ -62,9 +62,16 @@ func sell(amount: int) -> bool:
 	if not plr: return false
 	return plr.money.subtractMoney(amount)
 
-func buyBox() -> void:
-	var randItem: PackedScene = getRandItem()
-	var instance = randItem.instantiate()
+func buyItem() -> void:
+	var randItem: Dictionary = getRandItem()
+	print(randItem)
+	var instance
+	if randItem.get("scene"):
+		instance = randItem.get("scene").instantiate()
+	else:
+		instance = itemArray[1].instantiate()
+	
+	
 	if instance is SellableDraggableBody:
 		var rand = RandomNumberGenerator.new()
 		rand.randomize()
@@ -86,4 +93,4 @@ func buyBox() -> void:
 #endregion
 
 func interacted():
-	buyBox()
+	buyItem()

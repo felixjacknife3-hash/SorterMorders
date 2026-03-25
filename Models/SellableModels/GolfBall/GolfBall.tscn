@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://djr5ar4wf7mmr"]
+
+[ext_resource type="Script" uid="uid://dbtxh5w6nkiqr" path="res://Scripts/drag/SellDragBody.gd" id="1_1805u"]
+[ext_resource type="PackedScene" uid="uid://b52qtscftoe2f" path="res://Models/SellableModels/GolfBall/GolfBall.glb" id="2_8twx8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l2b0f"]
+radius = 0.3
+
+[node name="GolfBall" type="RigidBody3D" unique_id=757490407]
+continuous_cd = true
+script = ExtResource("1_1805u")
+metadata/_custom_type_script = "uid://dbtxh5w6nkiqr"
+
+[node name="GolfBall" parent="." unique_id=1453334529 instance=ExtResource("2_8twx8")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1884334853]
+shape = SubResource("SphereShape3D_l2b0f")

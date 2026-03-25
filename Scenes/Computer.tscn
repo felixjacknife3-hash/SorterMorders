@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cirhc2cc42l6x" path="res://Scripts/misc/Interactable.gd" id="1_7nkhe"]
 [ext_resource type="PackedScene" uid="uid://bpidy2mqr6chi" path="res://Scenes/ComputerUI.tscn" id="2_bamam"]
-[ext_resource type="PackedScene" uid="uid://oq233mcbq81a" path="res://Models/Computer/Computer.glb" id="3_561pf"]
+[ext_resource type="PackedScene" uid="uid://oq233mcbq81a" path="res://Models/ExtraModel/Computer/Computer.glb" id="3_561pf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bamam"]
 size = Vector3(0.8, 0.8, 0.65)

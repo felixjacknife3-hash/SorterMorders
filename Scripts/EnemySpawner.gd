@@ -6,7 +6,6 @@ extends Node
 @export var multi: int = 3
 
 var turnedNight: bool = false
-var time: float
 var currDay: int = 1
 
 func getRandPos() -> Vector3:
@@ -37,9 +36,8 @@ func getCurrDayCount(currTime: float) -> int:
 func getEnemySpawnAmount(input: int) -> int:
 	return ceil(clamp(input ** 0.7, 0, 1e5)) * 3
 
-func _process(delta: float) -> void:
-	time += delta
-	currDay = getCurrDayCount(time)
+func _process(_delta: float) -> void:
+	currDay = getCurrDayCount(environment.time)
 	if not environment.day and not turnedNight:
 		turnedNight = true
 		spawnEnemies(getEnemySpawnAmount(currDay))

@@ -10,16 +10,21 @@ class_name TimedEnvironment
 var cycleLength: float
 var time := 0.0
 var animPlayed := false
+var dayGoing := true
+
+func swapCanDayCycle() -> void:
+	dayGoing = !dayGoing
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	cycleLength = dayLength + nightLength
+	Console.add_command("swapDayCycle", swapCanDayCycle)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
-	time += delta
+	if dayGoing:
+		time += delta
 	var testTime = fmod(time, cycleLength)
 	if testTime <= dayLength:
 		day = true

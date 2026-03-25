@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bvrcthqandb2c"]
+
+[ext_resource type="Script" uid="uid://dbtxh5w6nkiqr" path="res://Scripts/drag/SellDragBody.gd" id="1_ju714"]
+[ext_resource type="PackedScene" uid="uid://cp6mabpg0fl5q" path="res://Models/SellableModels/Cherry/Cherry.glb" id="2_rrxo3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_800ci"]
+
+[node name="Cherries" type="RigidBody3D" unique_id=358394820]
+script = ExtResource("1_ju714")
+price = 180.0
+metadata/_custom_type_script = "uid://dbtxh5w6nkiqr"
+
+[node name="Cherry" parent="." unique_id=1913087914 instance=ExtResource("2_rrxo3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=540549297]
+shape = SubResource("SphereShape3D_800ci")
+
+[editable path="Cherry"]

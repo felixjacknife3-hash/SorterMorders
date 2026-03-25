@@ -15,6 +15,9 @@ class_name Player
 @export_subgroup("Bhop")
 @export var bHopResetTime := 0.5
 
+@export_subgroup("Strengths")
+@export var pushStrength := 2.0
+
 @export_group("Bools")
 
 @export_group("Nodes")
@@ -91,3 +94,11 @@ func _physics_process(delta: float) -> void:
 	#endregion
 	
 	move_and_slide()
+	
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		
+		if collider is RigidBody3D:
+			var pushDir = -collision.get_normal()
+			collider.apply_impulse(pushDir * pushStrength, collision.get_position() - collider.global_position)

@@ -67,6 +67,7 @@ sprintSpeed = 7.0
 baseSpeed = 4.0
 jumpVel = 3.5
 bHopResetTime = 0.3
+pushStrength = 0.8
 money = NodePath("MoneyComponent")
 health = NodePath("HealthComponent")
 cam = NodePath("Head/Cam")
