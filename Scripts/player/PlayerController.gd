@@ -32,21 +32,38 @@ class_name Player
 @export var light: SpotLight3D
 
 #non-editor vars
+var res = saveLoad.saveLoadRes
 var speed: float = 3
 var jumps := 0
 var bHopTimer: float = 0
 var currBHopMulti := 1.0
 
 func _ready() -> void:
-	Console.add_command("killallenemies", killEnemies)
-
-func killEnemies():
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		enemy.queue_free()
+	Console.add_command("killAllEnemies", killEnemies)
+	#region
+	var pos = res.loadKey("pos")
+	var hp = res.loadKey("hp")
+	var maknee = res.loadKey("money")
+	var yrot = res.loadKey("yrot")
+	if pos is Vector3:
+		global_position = pos
+	if hp is int:
+		health.health = hp
+	if maknee is int:
+		money.money = maknee
+	if yrot is float:
+		rotation.y = yrot
+	
+	#endregion
 
 func _physics_process(delta: float) -> void:
 	if environment:
 		light.visible = not environment.day
+	
+	res.data["pos"] = global_position
+	res.data["hp"] = health.health
+	res.data["money"] = money.money
+	res.data["yrot"] = rotation.y
 	
 	#Jump Region
 	#region
@@ -94,7 +111,13 @@ func _physics_process(delta: float) -> void:
 	#endregion
 	
 	move_and_slide()
-	
+	pushRigidBodies()
+
+func killEnemies():
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy.queue_free()
+
+func pushRigidBodies() -> void:
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()

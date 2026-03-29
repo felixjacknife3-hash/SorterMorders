@@ -7,21 +7,29 @@
 [ext_resource type="Script" uid="uid://nux5xsvujq74" path="res://Scripts/player/Interacter.gd" id="4_52ee3"]
 [ext_resource type="Texture2D" uid="uid://c0nvwh8tdbow7" path="res://Images/crosshair.png" id="4_dewec"]
 [ext_resource type="Script" uid="uid://b085n1mq1gsfj" path="res://Scripts/player/PauseScript.gd" id="5_5ixxa"]
-[ext_resource type="Script" uid="uid://cha64kp8gu2x3" path="res://Scripts/BuildMenu.gd" id="8_1e7my"]
+[ext_resource type="Script" uid="uid://cha64kp8gu2x3" path="res://Scripts/ui/BuildMenu.gd" id="8_1e7my"]
 [ext_resource type="Script" uid="uid://d3m20iai2hh4e" path="res://Scripts/variableNodes/Money.gd" id="8_bhhdu"]
+[ext_resource type="Script" uid="uid://b35df15ttamdf" path="res://Scripts/player/PlrHP.gd" id="8_i2e8t"]
 [ext_resource type="Texture2D" uid="uid://cxby1t3prni8k" path="res://Images/BackBuild.png" id="8_miouo"]
 [ext_resource type="Texture2D" uid="uid://66llnjfjprto" path="res://Images/MoneyBag.png" id="8_yoq75"]
 [ext_resource type="Script" uid="uid://bvgqtmvqogc2w" path="res://Scripts/ui/MoneyLabel.gd" id="9_ksbbd"]
-[ext_resource type="Script" uid="uid://di4h3ferw3gly" path="res://Scripts/variableNodes/Health.gd" id="9_megsn"]
 [ext_resource type="Texture2D" uid="uid://b5nueh1h6ha5e" path="res://Images/Hole.png" id="9_o3h8g"]
-[ext_resource type="Script" uid="uid://bfro85wcsu7q5" path="res://Scripts/BuildBuilder.gd" id="12_glx4g"]
+[ext_resource type="Script" uid="uid://bfro85wcsu7q5" path="res://Scripts/player/BuildBuilder.gd" id="12_glx4g"]
 [ext_resource type="Texture2D" uid="uid://ba1b8j7jispps" path="res://Images/BuildBG.png" id="16_5v66d"]
-[ext_resource type="Script" uid="uid://uo8vig14qyjw" path="res://Scripts/BuildItem.gd" id="17_m0x7a"]
+[ext_resource type="Script" uid="uid://uo8vig14qyjw" path="res://Scripts/ui/BuildItem.gd" id="17_m0x7a"]
 [ext_resource type="Texture2D" uid="uid://cr7h6jjub2xtm" path="res://Images/Hole$15.png" id="17_ulo2v"]
 [ext_resource type="Texture2D" uid="uid://b6mlfk4dp6tri" path="res://Images/1.png" id="18_1iu4k"]
 [ext_resource type="PackedScene" uid="uid://d0x4w5m5hku4u" path="res://Models/Hole/Hole.tscn" id="18_i2e8t"]
 [ext_resource type="FontFile" uid="uid://ytr7d41damwm" path="res://Resources/8x8pixelfont.ttf" id="21_x63xi"]
 [ext_resource type="Script" uid="uid://kbfntrjs4hdn" path="res://Scripts/ui/Text.gd" id="22_i2e8t"]
+[ext_resource type="Script" uid="uid://cvhmp2otxf6gd" path="res://Scripts/misc/HitBox.gd" id="23_i2e8t"]
+[ext_resource type="Script" uid="uid://ckr8dsl3b0eif" path="res://Scripts/ui/DieMenu.gd" id="23_qidb7"]
+[ext_resource type="Script" uid="uid://vqdnirer55ag" path="res://Scripts/ui/reset.gd" id="24_70hv0"]
+[ext_resource type="Script" uid="uid://bweu78t6u3cuh" path="res://Scripts/ui/PauseMenu.gd" id="25_8flut"]
+[ext_resource type="Script" uid="uid://bigfnrqs4div4" path="res://Scripts/quit.gd" id="25_avx33"]
+[ext_resource type="Texture2D" uid="uid://dqba7xbdkmcj7" path="res://Images/PauseText.png" id="26_u7x0b"]
+[ext_resource type="Script" uid="uid://c4v0wr3ceonsx" path="res://Scripts/ui/save.gd" id="27_utwlt"]
+[ext_resource type="Script" uid="uid://cqiw2hcl11pgf" path="res://Scripts/ui/savequit.gd" id="28_kih0c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 
@@ -52,18 +60,31 @@ radius = 0.4
 height = 1.0
 radius = 1.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_glx4g"]
-radius = 0.25
-height = 0.25
-is_hemisphere = true
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3h8g"]
 texture = ExtResource("8_miouo")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8flut"]
+bg_color = Color(0.9764706, 0.6627451, 0.16862746, 0.78431374)
+skew = Vector2(0.05, 0)
+border_width_left = 24
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.8352941, 0.25490198, 0.78431374)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i2e8t"]
+radius = 0.6
+height = 2.2
 
 [node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("money", "health", "cam", "light") groups=["player"]]
 collision_mask = 3
 script = ExtResource("1_xhfnw")
-sprintSpeed = 7.0
+sprintSpeed = 6.0
 baseSpeed = 4.0
 jumpVel = 3.5
 bHopResetTime = 0.3
@@ -138,7 +159,8 @@ money = 10
 metadata/_custom_type_script = "uid://d3m20iai2hh4e"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1949866035]
-script = ExtResource("9_megsn")
+script = ExtResource("8_i2e8t")
+maxHealth = 150
 metadata/_custom_type_script = "uid://di4h3ferw3gly"
 
 [node name="BuildPosition" type="Node3D" parent="." unique_id=155911006 node_paths=PackedStringArray("cam", "money")]
@@ -146,9 +168,6 @@ script = ExtResource("12_glx4g")
 cam = NodePath("../Head/Cam")
 money = NodePath("../MoneyComponent")
 shape = SubResource("CylinderShape3D_x63xi")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="BuildPosition" unique_id=211134294]
-mesh = SubResource("SphereMesh_glx4g")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1151304745]
 
@@ -176,7 +195,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_dewec")
 
-[node name="Control" type="Control" parent="CanvasLayer/Control" unique_id=977216654]
+[node name="Money" type="Control" parent="CanvasLayer/Control" unique_id=977216654]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -187,7 +206,7 @@ offset_right = 96.0
 offset_bottom = -3.0
 grow_vertical = 0
 
-[node name="Money" type="Label" parent="CanvasLayer/Control/Control" unique_id=112067606 node_paths=PackedStringArray("moneyComponent")]
+[node name="Money" type="Label" parent="CanvasLayer/Control/Money" unique_id=112067606 node_paths=PackedStringArray("moneyComponent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -201,7 +220,7 @@ vertical_alignment = 1
 script = ExtResource("9_ksbbd")
 moneyComponent = NodePath("../../../../MoneyComponent")
 
-[node name="MoneyBag" type="TextureRect" parent="CanvasLayer/Control/Control" unique_id=534241190]
+[node name="MoneyBag" type="TextureRect" parent="CanvasLayer/Control/Money" unique_id=534241190]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 2
@@ -262,18 +281,19 @@ script = ExtResource("17_m0x7a")
 scene = ExtResource("18_i2e8t")
 pressNum = &"1"
 builder = NodePath("../../../../../../BuildPosition")
+price = 50
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Buildmenu/Panel/ScrollContainer/Hole" unique_id=121463971]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -46.5
-offset_top = -12.0
-offset_right = 46.5
-offset_bottom = 12.0
+anchors_preset = -1
+anchor_left = 0.011000001
+anchor_top = 0.038000003
+anchor_right = 0.989
+anchor_bottom = 0.9620001
+offset_left = -0.045000076
+offset_top = 0.011999965
+offset_right = 0.04499817
+offset_bottom = -0.012001038
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 1
@@ -309,11 +329,11 @@ grow_vertical = 0
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Text" unique_id=2079295716]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.393
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -17.0
+offset_top = -0.00399971
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/normal_font = ExtResource("21_x63xi")
@@ -324,5 +344,182 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("22_i2e8t")
 
+[node name="DieMenu" type="Control" parent="CanvasLayer/Control" unique_id=1372157102]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("23_qidb7")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/DieMenu" unique_id=894196703]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.39215687, 0, 0.08627451, 0.5882353)
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DieMenu" unique_id=1390607732]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.5
+offset_bottom = -84.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 64
+text = "You Died."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/DieMenu" unique_id=1316750719]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 66.0
+offset_top = 73.5
+offset_right = -66.0
+offset_bottom = -81.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 10
+text = "!restarting will full reset!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="reset" type="Button" parent="CanvasLayer/Control/DieMenu" unique_id=891940557]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = 8.0
+offset_right = 47.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 16
+text = "RESTART"
+script = ExtResource("24_70hv0")
+
+[node name="quit" type="Button" parent="CanvasLayer/Control/DieMenu" unique_id=1551772119]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = 42.0
+offset_right = 47.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 16
+text = "QUIT"
+script = ExtResource("25_avx33")
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer/Control" unique_id=1196281341]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchor_right = 0.344
+anchor_bottom = 1.0
+offset_right = -0.08000183
+grow_vertical = 2
+script = ExtResource("25_8flut")
+
+[node name="BG" type="Panel" parent="CanvasLayer/Control/PauseMenu" unique_id=886090913]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.127
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.029999733
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8flut")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PauseMenu" unique_id=1068138453]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14500001
+anchor_top = 0.033
+anchor_right = 0.92700005
+anchor_bottom = 0.97200006
+offset_left = 0.049999237
+offset_top = 0.059999943
+offset_right = 0.02999878
+offset_bottom = 0.039993286
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PauseMenu/VBoxContainer" unique_id=1522869777]
+layout_mode = 2
+texture = ExtResource("26_u7x0b")
+stretch_mode = 2
+
+[node name="resume" type="Button" parent="CanvasLayer/Control/PauseMenu/VBoxContainer" unique_id=428849162]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 10
+text = "Resume"
+
+[node name="options" type="Button" parent="CanvasLayer/Control/PauseMenu/VBoxContainer" unique_id=509418593]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 10
+disabled = true
+text = "Options"
+
+[node name="save" type="Button" parent="CanvasLayer/Control/PauseMenu/VBoxContainer" unique_id=128496460]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 10
+text = "Save"
+script = ExtResource("27_utwlt")
+
+[node name="savequit" type="Button" parent="CanvasLayer/Control/PauseMenu/VBoxContainer" unique_id=741636413]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 10
+text = "Save and Quit"
+script = ExtResource("28_kih0c")
+
+[node name="quit" type="Button" parent="CanvasLayer/Control/PauseMenu/VBoxContainer" unique_id=1717645923]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_x63xi")
+theme_override_font_sizes/font_size = 10
+text = "Quit"
+script = ExtResource("25_avx33")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=1159226867 node_paths=PackedStringArray("healthComponent")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("23_i2e8t")
+healthComponent = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cvhmp2otxf6gd"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBox" unique_id=596356873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_i2e8t")
+
 [connection signal="dragging" from="Head/DragDetector" to="DragNode" method="drag"]
 [connection signal="endDragging" from="Head/DragDetector" to="DragNode" method="_stopDrag"]
+[connection signal="die" from="HealthComponent" to="CanvasLayer/Control/DieMenu" method="die"]

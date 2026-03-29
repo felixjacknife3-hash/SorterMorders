@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://csv01bg0yiw38" path="res://Models/Enemies/Freaky/Freaky.glb" id="2_p6r5x"]
 [ext_resource type="AnimationLibrary" uid="uid://b1a20bfhrgmpr" path="res://Models/Enemies/Freaky/Freaky_Walk.glb" id="3_3mbvc"]
 [ext_resource type="Texture2D" uid="uid://cr116wnq8b3gy" path="res://Models/Enemies/Freaky/EnemyTex.png" id="3_rhm0d"]
+[ext_resource type="Script" uid="uid://cvhmp2otxf6gd" path="res://Scripts/misc/HitBox.gd" id="5_jp78m"]
+[ext_resource type="Script" uid="uid://di4h3ferw3gly" path="res://Scripts/variableNodes/Health.gd" id="6_y6a7y"]
+[ext_resource type="Script" uid="uid://drmh4wlshu7e" path="res://Scripts/misc/HurtBox.gd" id="7_y6a7y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jp78m"]
 albedo_texture = ExtResource("3_rhm0d")
@@ -13,29 +16,92 @@ albedo_texture = ExtResource("3_rhm0d")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rhm0d"]
 
-[node name="Enemy" type="CharacterBody3D" unique_id=1739616107 node_paths=PackedStringArray("navAgent", "animPlr") groups=["enemy"]]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jp78m"]
+radius = 0.6
+height = 2.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y6a7y"]
+size = Vector3(1.2, 2, 0.7)
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1739616107 node_paths=PackedStringArray("navAgent", "hurtBox", "animPlr") groups=["enemy"]]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_clk7l")
 navAgent = NodePath("NavigationAgent3D")
+hurtBox = NodePath("HurtBox")
+pushStrength = 1.0
+atkDb = 1.0
+atkRadius = 2.0
 animPlr = NodePath("BadGuy_01/AnimationPlayer")
-walk = &"Epstein_Walk/Walk"
+walkAnim = &"Freaky_Walk/Walk"
 metadata/_custom_type_script = "uid://3ef0p53nhlkj"
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1380618074]
 avoidance_enabled = true
 
-[node name="BadGuy_01" parent="." unique_id=1000750366 instance=ExtResource("2_p6r5x")]
+[node name="BadGuy_01" parent="." unique_id=1243294492 instance=ExtResource("2_p6r5x")]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 
-[node name="Cube_001" parent="BadGuy_01/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1000750366, 1502353596) index="0" unique_id=1787784929]
+[node name="Skeleton3D" parent="BadGuy_01/Armature" parent_id_path=PackedInt32Array(1243294492, 1175052466) index="0" unique_id=1845944664]
+bones/0/position = Vector3(0, 1.0983361, -0.012890243)
+bones/3/rotation = Quaternion(-0.16655186, 0.32116163, 0.3655139, 0.85762197)
+bones/4/rotation = Quaternion(7.793126e-08, -1.1288051e-07, 0.23678012, 0.9715633)
+bones/5/rotation = Quaternion(-8.4467544e-10, -4.3918885e-08, -0.018705312, 0.99982506)
+bones/9/rotation = Quaternion(-0.085334614, -0.21343803, -0.37352252, 0.89868975)
+bones/10/rotation = Quaternion(5.760051e-08, 1.14816025e-07, -0.23678015, 0.9715633)
+bones/12/position = Vector3(3.9115548e-08, 1.098336, -0.011737206)
+bones/13/rotation = Quaternion(-0.22081192, -0.29766238, 0.24923924, 0.8947173)
+bones/14/rotation = Quaternion(-0.22337261, -0.00017127674, -0.16198422, 0.9611794)
+bones/15/rotation = Quaternion(0.2910566, 0.22456604, 0.7405934, 0.56247467)
+bones/16/position = Vector3(-0.19453326, 0.0806793, 0.0009781866)
+bones/17/rotation = Quaternion(-0.46142685, 0.5358034, 0.5358034, -0.46142685)
+bones/18/position = Vector3(-0.41794002, 1.0795379, 0.07605707)
+bones/19/position = Vector3(-3.9115548e-08, 1.098336, -0.011737206)
+bones/20/rotation = Quaternion(-0.22056478, 0.3277832, -0.26269805, 0.88028353)
+bones/21/rotation = Quaternion(-0.22337264, 0.00017124414, 0.16198422, 0.9611794)
+bones/22/rotation = Quaternion(0.3275918, -0.25982922, -0.7235106, 0.54927665)
+bones/23/position = Vector3(0.19453326, 0.0806793, 0.0009781866)
+bones/25/position = Vector3(0.41794002, 1.0795379, 0.07605707)
+
+[node name="Cube_001" parent="BadGuy_01/Armature/Skeleton3D" index="0" unique_id=1238247829]
 material_override = SubResource("StandardMaterial3D_jp78m")
 surface_material_override/0 = SubResource("StandardMaterial3D_y6a7y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BadGuy_01" unique_id=318718160]
-libraries/Epstein_Walk = ExtResource("3_3mbvc")
+libraries/Freaky_Walk = ExtResource("3_3mbvc")
+autoplay = &"Freaky_Walk/Walk"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1706979006]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_rhm0d")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=2071222316 node_paths=PackedStringArray("healthComponent")]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("5_jp78m")
+healthComponent = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cvhmp2otxf6gd"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBox" unique_id=1838578750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_jp78m")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=751158457]
+script = ExtResource("6_y6a7y")
+maxHealth = 120
+metadata/_custom_type_script = "uid://di4h3ferw3gly"
+
+[node name="HurtBox" type="Area3D" parent="." unique_id=328288985 node_paths=PackedStringArray("colShape")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.6)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_y6a7y")
+damage = 30.0
+colShape = NodePath("CollisionShape3D")
+metadata/_custom_type_script = "uid://drmh4wlshu7e"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=1047634330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_y6a7y")
+disabled = true
 
 [editable path="BadGuy_01"]

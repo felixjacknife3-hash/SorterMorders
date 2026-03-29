@@ -1,3 +1,15 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://0bpqas033ot8"]
 
+[ext_resource type="Texture2D" uid="uid://bb7kghtgsnsy3" path="res://Models/Enemies/Snatcher/quarry_wall_diff_4k.jpg" id="1_fdl6b"]
+[ext_resource type="Texture2D" uid="uid://cfgclyd8uqmj0" path="res://Models/Enemies/Snatcher/quarry_wall_disp_4k.png" id="2_2vm4a"]
+[ext_resource type="Texture2D" uid="uid://2hnc178venft" path="res://Models/Enemies/Snatcher/quarry_wall_nor_gl_4k.png" id="3_ej5kw"]
+[ext_resource type="Texture2D" uid="uid://ypmkq610bxqo" path="res://Models/Enemies/Snatcher/quarry_wall_rough_4k.png" id="4_0x5rh"]
+
 [resource]
+albedo_color = Color(0.29, 0.29, 0.29, 1)
+albedo_texture = ExtResource("1_fdl6b")
+roughness_texture = ExtResource("4_0x5rh")
+normal_enabled = true
+normal_texture = ExtResource("3_ej5kw")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_2vm4a")

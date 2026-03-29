@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Sorter Morders"
-run/main_scene="uid://df4dm0243c6aa"
+config/name="Tycoon Madness"
+run/main_scene="uid://droo4fbsnrhs0"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Console="*uid://ouiu5xh1cs8n"
 UpgradeManager="*uid://dg1eq4btqu8mx"
 TellInfo="*uid://1vrqgjy5ouvc"
+saveLoad="*uid://735gw3gry1o6"
 
 [display]
 
@@ -39,6 +40,7 @@ enabled=PackedStringArray("res://addons/proton_scatter/plugin.cfg")
 player=""
 sellables=""
 enemy=""
+swordHurtBox=""
 
 [gui]
 

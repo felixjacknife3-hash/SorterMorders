@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d0x4w5m5hku4u"]
 
-[ext_resource type="Script" uid="uid://bbndcgiishkd4" path="res://Scripts/Hole.gd" id="1_y8uox"]
+[ext_resource type="Script" uid="uid://bbndcgiishkd4" path="res://Scripts/misc/Hole.gd" id="1_y8uox"]
 [ext_resource type="PackedScene" uid="uid://3laej1nsk87o" path="res://Models/Hole/Hole.glb" id="2_y8uox"]
 [ext_resource type="Material" uid="uid://n8wffk842vth" path="res://Models/Black.tres" id="3_y8uox"]
 

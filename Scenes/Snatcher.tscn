@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://c6px7rop0yqfe"]
+
+[ext_resource type="Script" uid="uid://3ef0p53nhlkj" path="res://Scripts/Enemy.gd" id="1_d8q0s"]
+[ext_resource type="PackedScene" uid="uid://b4oj04htij37o" path="res://Models/Enemies/Snatcher/Snatcher.glb" id="2_sed2m"]
+[ext_resource type="AnimationLibrary" uid="uid://ykg6f766mo2d" path="res://Models/Enemies/Snatcher/Snatcher_Walk.glb" id="3_23jj6"]
+[ext_resource type="Material" uid="uid://0bpqas033ot8" path="res://Models/Enemies/Snatcher/SnatcherMat.tres" id="3_yy3ud"]
+[ext_resource type="Script" uid="uid://di4h3ferw3gly" path="res://Scripts/variableNodes/Health.gd" id="4_23jj6"]
+[ext_resource type="Script" uid="uid://cvhmp2otxf6gd" path="res://Scripts/misc/HitBox.gd" id="5_b8cqg"]
+[ext_resource type="Script" uid="uid://drmh4wlshu7e" path="res://Scripts/misc/HurtBox.gd" id="5_yy3ud"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d8q0s"]
+radius = 1.6
+height = 5.1000004
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_23jj6"]
+radius = 1.9
+height = 5.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n0ow8"]
+size = Vector3(3.8, 5, 1.6)
+
+[node name="Snatcher" type="CharacterBody3D" unique_id=1142753413 node_paths=PackedStringArray("navAgent", "hurtBox", "animPlr")]
+script = ExtResource("1_d8q0s")
+navAgent = NodePath("NavigationAgent3D")
+hurtBox = NodePath("HurtBox")
+speed = 6.1
+pushStrength = 2.0
+atkRadius = 3.0
+animPlr = NodePath("Snatcher/AnimationPlayer")
+metadata/_custom_type_script = "uid://3ef0p53nhlkj"
+
+[node name="Snatcher" parent="." unique_id=2090864940 instance=ExtResource("2_sed2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
+
+[node name="Cube_001" parent="Snatcher/Armature/Skeleton3D" parent_id_path=PackedInt32Array(2090864940, 741306047) index="0" unique_id=1034256128]
+surface_material_override/0 = ExtResource("3_yy3ud")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Snatcher" unique_id=1948803720]
+libraries/Snatcher_Walk = ExtResource("3_23jj6")
+autoplay = &"Snatcher_Walk/Walk"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=63202055]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1990304366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5500002, 0.100000024)
+shape = SubResource("CapsuleShape3D_d8q0s")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1200315342]
+script = ExtResource("4_23jj6")
+maxHealth = 300
+metadata/_custom_type_script = "uid://di4h3ferw3gly"
+
+[node name="HitBox" type="Area3D" parent="." unique_id=207495190 node_paths=PackedStringArray("healthComponent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("5_b8cqg")
+healthComponent = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cvhmp2otxf6gd"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBox" unique_id=2037064281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5500002, 0.8)
+shape = SubResource("CapsuleShape3D_23jj6")
+
+[node name="HurtBox" type="Area3D" parent="." unique_id=12815106 node_paths=PackedStringArray("colShape")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6000001)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("5_yy3ud")
+damage = 40.0
+colShape = NodePath("CollisionShape3D")
+metadata/_custom_type_script = "uid://drmh4wlshu7e"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=1960678167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4999998, 0)
+shape = SubResource("BoxShape3D_n0ow8")
+disabled = true
+
+[editable path="Snatcher"]

@@ -1,0 +1,252 @@
+[gd_scene format=3 uid="uid://droo4fbsnrhs0"]
+
+[ext_resource type="Shader" uid="uid://dfp3y4pt2rc51" path="res://Shaders/MainMenu.gdshader" id="1_ghw46"]
+[ext_resource type="Script" uid="uid://i1a0yvygdn8v" path="res://Scripts/ui/CreditsText.gd" id="1_if7li"]
+[ext_resource type="PackedScene" uid="uid://bcmwgjvq4j7tp" path="res://Scenes/Box.tscn" id="2_df05h"]
+[ext_resource type="PackedScene" uid="uid://dxog1r5wshf0j" path="res://Models/ExtraModel/Terrain/Terrain.tscn" id="3_8um5k"]
+[ext_resource type="PackedScene" uid="uid://bu4mk7svebd0a" path="res://Models/ExtraModel/House/House.tscn" id="4_xim88"]
+[ext_resource type="Texture2D" uid="uid://dlyobdc75y0tc" path="res://Images/TycoonMadnessLogo.png" id="5_8um5k"]
+[ext_resource type="FontFile" uid="uid://ytr7d41damwm" path="res://Resources/8x8pixelfont.ttf" id="6_xim88"]
+[ext_resource type="Script" uid="uid://b4c34au4qaiep" path="res://Scripts/ui/play.gd" id="7_koqhg"]
+[ext_resource type="Script" uid="uid://cqiw2hcl11pgf" path="res://Scripts/ui/savequit.gd" id="7_xim88"]
+[ext_resource type="PackedScene" uid="uid://df4dm0243c6aa" path="res://Scenes/main.scn" id="8_cmrfp"]
+[ext_resource type="Script" uid="uid://cdjhp6svroq4n" path="res://Scripts/ui/credits.gd" id="9_rrcx7"]
+[ext_resource type="Texture2D" uid="uid://vaexkra2fy3r" path="res://Images/Money.png" id="10_loo7a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghw46"]
+shader = ExtResource("1_ghw46")
+shader_parameter/strength = 2
+
+[sub_resource type="Gradient" id="Gradient_cmrfp"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.98)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0.49803922)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_loo7a"]
+noise_type = 2
+frequency = 1.0
+fractal_type = 2
+fractal_lacunarity = 3.0
+fractal_gain = 2.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cm0pq"]
+width = 4096
+height = 3072
+noise = SubResource("FastNoiseLite_loo7a")
+color_ramp = SubResource("Gradient_cmrfp")
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_if7li"]
+rayleigh_color = Color(0.2578149, 0.3509908, 0.5306423, 1)
+turbidity = 200.0
+sun_disk_scale = 75.0
+ground_color = Color(0.075271405, 0.049214043, 0.022533428, 1)
+energy_multiplier = 2.0
+night_sky = SubResource("NoiseTexture2D_cm0pq")
+
+[sub_resource type="Sky" id="Sky_3dxm6"]
+sky_material = SubResource("PhysicalSkyMaterial_if7li")
+
+[sub_resource type="Environment" id="Environment_rrcx7"]
+background_mode = 2
+sky = SubResource("Sky_3dxm6")
+tonemap_mode = 2
+ssao_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_bounce_feedback = 0.62
+sdfgi_cascades = 6
+sdfgi_min_cell_size = 0.1
+sdfgi_y_scale = 0
+fog_enabled = true
+fog_density = 0.0
+fog_sky_affect = 0.4
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_loo7a"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 160.0
+initial_velocity_max = 130.0
+angular_velocity_min = 44.999985
+angular_velocity_max = 719.99994
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+gravity = Vector3(0, 98, 0)
+radial_accel_min = -100.0
+radial_accel_max = 99.99999
+
+[node name="Control" type="Control" unique_id=129856650]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=907721866]
+texture_filter = 2
+material = SubResource("ShaderMaterial_ghw46")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1344058724]
+handle_input_locally = false
+size = Vector2i(320, 180)
+render_target_update_mode = 4
+
+[node name="Box" parent="SubViewportContainer/SubViewport" unique_id=79304096 instance=ExtResource("2_df05h")]
+transform = Transform3D(1.9991539, -0.058169425, 0, 0.058169425, 1.9991539, 0, 0, 0, 2, -0.27385324, -1.2988584, -1.8999996)
+
+[node name="Terrain2" parent="SubViewportContainer/SubViewport" unique_id=640147805 instance=ExtResource("3_8um5k")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, -0.5, 0)
+
+[node name="House2" parent="SubViewportContainer/SubViewport" unique_id=55638266 instance=ExtResource("4_xim88")]
+transform = Transform3D(0.9063077, 0, -0.4226182, 0, 1, 0, 0.4226182, 0, 0.9063077, 18.400593, -0.3, -35.371456)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1528153438]
+transform = Transform3D(0.9396926, 0.08852134, -0.3303661, -7.450581e-09, 0.9659258, 0.25881907, 0.34202015, -0.24321036, 0.90767336, -0.72142607, 8.446322, 10.182101)
+current = true
+
+[node name="SunLight" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=80528857]
+transform = Transform3D(1.0000001, 0, 0, 0, -0.34201974, 0.93969285, 0, -0.93969256, -0.34201983, 0, 0, 0)
+light_color = Color(0.6910259, 0.6926547, 0.398196, 1)
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+shadow_enabled = true
+directional_shadow_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=1709851315]
+environment = SubResource("Environment_rrcx7")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=528524724]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.058000002
+anchor_right = 0.87500006
+anchor_bottom = 0.531
+offset_top = 0.059999466
+offset_right = -3.0517578e-05
+offset_bottom = -0.08000183
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_8um5k")
+stretch_mode = 2
+
+[node name="play" type="Button" parent="." unique_id=1699075672]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.51600003
+anchor_top = 0.586
+anchor_right = 0.841
+anchor_bottom = 0.725
+offset_left = -0.120010376
+offset_top = 0.019996643
+offset_right = -0.11999512
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_xim88")
+text = "Play"
+script = ExtResource("7_koqhg")
+game = ExtResource("8_cmrfp")
+
+[node name="credits" type="Button" parent="." unique_id=1806384993 node_paths=PackedStringArray("panel")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15900001
+anchor_top = 0.586
+anchor_right = 0.48400003
+anchor_bottom = 0.725
+offset_left = 0.11999512
+offset_top = 0.019996643
+offset_right = 0.11999512
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_xim88")
+text = "Credits"
+script = ExtResource("9_rrcx7")
+panel = NodePath("../Panel")
+
+[node name="options" type="Button" parent="." unique_id=1698499093]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15900001
+anchor_top = 0.753
+anchor_right = 0.48400003
+anchor_bottom = 0.892
+offset_left = 0.11999512
+offset_top = -0.040008545
+offset_right = 0.11999512
+offset_bottom = -0.05999756
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_xim88")
+disabled = true
+text = "Options"
+
+[node name="quit" type="Button" parent="." unique_id=610690359]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.51600003
+anchor_top = 0.753
+anchor_right = 0.841
+anchor_bottom = 0.892
+offset_left = -0.120010376
+offset_top = -0.040008545
+offset_right = -0.11999512
+offset_bottom = -0.05999756
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_xim88")
+text = "Quit"
+script = ExtResource("7_xim88")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=335873245]
+position = Vector2(156, -42)
+texture = ExtResource("10_loo7a")
+lifetime = 3.0
+randomness = 1.0
+visibility_rect = Rect2(-366.04782, -50.281708, 857.5139, 695.62305)
+process_material = SubResource("ParticleProcessMaterial_loo7a")
+
+[node name="Panel" type="Panel" parent="." unique_id=749356492]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22800002
+anchor_top = 0.022000002
+anchor_right = 0.772
+anchor_bottom = 0.97800004
+offset_left = 0.039993286
+offset_top = 0.039999723
+offset_right = -0.040008545
+offset_bottom = -0.040008545
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=1774501565]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.058000002
+anchor_top = 0.029000001
+anchor_right = 0.94200003
+anchor_bottom = 0.9710001
+offset_left = 0.011999607
+offset_top = 0.011999607
+offset_right = -0.012001038
+offset_bottom = -0.012008667
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=45224997]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1207420356]
+custom_minimum_size = Vector2(70, 8)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_xim88")
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
+script = ExtResource("1_if7li")
