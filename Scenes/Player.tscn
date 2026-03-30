@@ -30,7 +30,9 @@
 [ext_resource type="Texture2D" uid="uid://dqba7xbdkmcj7" path="res://Images/PauseText.png" id="26_u7x0b"]
 [ext_resource type="Script" uid="uid://c4v0wr3ceonsx" path="res://Scripts/ui/save.gd" id="27_utwlt"]
 [ext_resource type="Script" uid="uid://cqiw2hcl11pgf" path="res://Scripts/ui/savequit.gd" id="28_kih0c"]
+[ext_resource type="Script" uid="uid://yq12nw1mkr12" path="res://Scripts/ui/hpBar.gd" id="30_wosd6"]
 [ext_resource type="AudioStream" uid="uid://c8crkacpetee0" path="res://i speak2.mp3" id="31_avx33"]
+[ext_resource type="Texture2D" uid="uid://brve0qfesttul" path="res://Images/Heart.png" id="31_hkrn1"]
 [ext_resource type="AudioStream" uid="uid://bh7nmo4lkysx6" path="res://i speak3.mp3" id="32_rxg2u"]
 [ext_resource type="Script" uid="uid://lkru1t1c4463" path="res://Scripts/PlayRandSong.gd" id="33_bfbt0"]
 [ext_resource type="AudioStream" uid="uid://dd17emh53w3wn" path="res://Music/NightTheme.wav" id="34_wosd6"]
@@ -81,6 +83,32 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfbt0"]
+bg_color = Color(0.15, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.09, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wosd6"]
+bg_color = Color(0.6, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i2e8t"]
 radius = 0.6
@@ -203,13 +231,13 @@ texture = ExtResource("4_dewec")
 
 [node name="Money" type="Control" parent="CanvasLayer/Control" unique_id=977216654]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -27.0
-offset_right = 96.0
-offset_bottom = -3.0
+anchor_left = 0.009000001
+anchor_top = 0.70600003
+anchor_right = 0.3
+anchor_bottom = 0.83900005
+offset_left = 0.119999886
+offset_top = -0.08000183
+offset_bottom = -0.020004272
 grow_vertical = 0
 
 [node name="Money" type="Label" parent="CanvasLayer/Control/Money" unique_id=112067606 node_paths=PackedStringArray("moneyComponent")]
@@ -515,6 +543,35 @@ theme_override_fonts/font = ExtResource("21_x63xi")
 theme_override_font_sizes/font_size = 10
 text = "Quit"
 script = ExtResource("25_avx33")
+
+[node name="Control" type="Control" parent="CanvasLayer/Control" unique_id=61146617]
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 155.0
+offset_right = 128.0
+offset_bottom = 177.0
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/Control" unique_id=1753454130 node_paths=PackedStringArray("health")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bfbt0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wosd6")
+max_value = 2500.0
+value = 2500.0
+show_percentage = false
+script = ExtResource("30_wosd6")
+health = NodePath("../../../../HealthComponent")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Control" unique_id=1645508732]
+layout_mode = 0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("31_hkrn1")
+stretch_mode = 2
 
 [node name="HitBox" type="Area3D" parent="." unique_id=1159226867 node_paths=PackedStringArray("healthComponent")]
 collision_layer = 2
