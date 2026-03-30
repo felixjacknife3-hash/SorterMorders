@@ -8,5 +8,5 @@ func _ready() -> void:
 	if swordPos is Vector3:
 		global_position = swordPos
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	res.data["swordPos"] = global_position

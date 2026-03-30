@@ -58,20 +58,16 @@ ao_texture = ExtResource("3_3i866")
 heightmap_enabled = true
 heightmap_texture = ExtResource("4_unms8")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sevgc"]
-radius = 0.2
-height = 2.2
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1amwk"]
-radius = 0.10595703
-height = 0.99902344
+[sub_resource type="BoxShape3D" id="BoxShape3D_g26pb"]
+size = Vector3(1, 2.2, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1amwk"]
 size = Vector3(0.6, 0.6, 1.8)
 
 [node name="Sword" type="RigidBody3D" unique_id=1083158234]
 continuous_cd = true
-angular_damp = 1.0
+linear_damp = 2.5
+angular_damp = 2.5
 script = ExtResource("1_sevgc")
 metadata/_custom_type_script = "uid://bv0a3c6o28qr7"
 
@@ -85,18 +81,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_eghr6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1386049216]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.0928147e-10, -0.3024999)
-shape = SubResource("CapsuleShape3D_sevgc")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=333641460]
-transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 0, 1.0928147e-10, 0.21837339)
-shape = SubResource("CapsuleShape3D_1amwk")
+shape = SubResource("BoxShape3D_g26pb")
 
 [node name="HurtBox" type="Area3D" parent="." unique_id=1753753688 groups=["swordHurtBox"]]
 disable_mode = 2
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("6_1amwk")
-damage = 30.0
 metadata/_custom_type_script = "uid://drmh4wlshu7e"
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="HurtBox" unique_id=859373052]

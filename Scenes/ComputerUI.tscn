@@ -2,10 +2,15 @@
 
 [ext_resource type="Script" uid="uid://ceoskii186vk3" path="res://Scripts/screen/ComputerScreen.gd" id="1_gl8ar"]
 [ext_resource type="Script" uid="uid://dx426hvaxstrq" path="res://Scripts/screen/ComputerMouse.gd" id="1_qjd30"]
+[ext_resource type="FontFile" uid="uid://ytr7d41damwm" path="res://Resources/8x8pixelfont.ttf" id="3_1s6sm"]
 [ext_resource type="Script" uid="uid://cdge1lufu6mt8" path="res://Scripts/screen/MouseMover.gd" id="4_el7wc"]
 [ext_resource type="Script" uid="uid://tcv6qakyp3yv" path="res://Scripts/screen/BackButton.gd" id="4_gl8ar"]
 [ext_resource type="Texture2D" uid="uid://cc5wm70dhgjp7" path="res://Images/Cursor.png" id="5_gl8ar"]
 [ext_resource type="Texture2D" uid="uid://bgtjade0r7ijx" path="res://Images/PCBackground.png" id="5_pfmxc"]
+[ext_resource type="Texture2D" uid="uid://45nmqtgdq23v" path="res://Images/Upgrade.png" id="8_ied1y"]
+[ext_resource type="Script" uid="uid://c57t6b20burq7" path="res://Scripts/ui/showUpgrade.gd" id="9_ied1y"]
+[ext_resource type="Script" uid="uid://byjx66bkqi05o" path="res://Scripts/ui/sword.gd" id="10_ht6uq"]
+[ext_resource type="Script" uid="uid://de646khdgcvsg" path="res://Scripts/ui/sell_multi.gd" id="11_pgyjb"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_stob6"]
 viewport_path = NodePath("SubViewport")
@@ -15,7 +20,7 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+bg_color = Color(0.02, 0.02, 0.02, 0.46666667)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -23,10 +28,28 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qe87u"]
-size = Vector2(62, 31)
+size = Vector2(62, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ul38a"]
 size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgyjb"]
+size = Vector2(24, 24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ied1y"]
+skew = Vector2(-0.05, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 22
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s5d7"]
+size = Vector2(83, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3ejs"]
+size = Vector2(83, 23)
 
 [node name="Screen" type="Node3D" unique_id=1304984359 node_paths=PackedStringArray("cam")]
 script = ExtResource("1_gl8ar")
@@ -57,14 +80,14 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -64.0
-offset_top = -37.0
+offset_top = -25.0
 offset_right = -2.0
 offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_font_sizes/font_size = 14
+theme_override_fonts/font = ExtResource("3_1s6sm")
+theme_override_font_sizes/font_size = 10
 theme_override_styles/normal = SubResource("StyleBoxFlat_qe87u")
-disabled = true
 text = "Back"
 script = ExtResource("4_gl8ar")
 screen = NodePath("../../..")
@@ -81,8 +104,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -8.0
 offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_right = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qjd30")
@@ -108,9 +131,77 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("5_pfmxc")
 
+[node name="ComputerNormalButton2" type="Button" parent="SubViewport/Control" unique_id=1542121141 node_paths=PackedStringArray("panel")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.028
+anchor_right = 0.116000004
+anchor_bottom = 0.20600002
+offset_left = -0.12000036
+offset_top = -0.03999996
+offset_right = -8.120003
+offset_bottom = -8.080002
+icon = ExtResource("8_ied1y")
+flat = true
+script = ExtResource("9_ied1y")
+panel = NodePath("../Control")
+shape = SubResource("RectangleShape2D_pgyjb")
+metadata/_custom_type_script = "uid://c7k47c54wwmna"
+
+[node name="Control" type="Control" parent="SubViewport/Control" unique_id=384548920]
+layout_mode = 1
+anchor_right = 0.25300002
+anchor_bottom = 0.82800007
+offset_left = 138.0
+offset_top = 2.0
+offset_right = 187.28
+offset_bottom = 1.9599915
+
+[node name="Panel" type="Panel" parent="SubViewport/Control/Control" unique_id=270848907]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.086
+anchor_right = 1.0990001
+anchor_bottom = 1.0
+offset_left = -2.966
+offset_right = -3.0190048
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ied1y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/Control/Control" unique_id=446269077]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 72.0
+offset_bottom = 145.0
+
+[node name="Sword" type="Button" parent="SubViewport/Control/Control/VBoxContainer" unique_id=1039951645]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1s6sm")
+theme_override_font_sizes/font_size = 14
+text = "Sword - 100"
+script = ExtResource("10_ht6uq")
+power = 1.05
+shape = SubResource("RectangleShape2D_6s5d7")
+metadata/_custom_type_script = "uid://ccmcksqw36ph3"
+
+[node name="Sell Multi" type="Button" parent="SubViewport/Control/Control/VBoxContainer" unique_id=597513381]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1s6sm")
+theme_override_font_sizes/font_size = 14
+text = "Sell Multi - 30"
+script = ExtResource("11_pgyjb")
+cost = 30
+power = 1.05
+shape = SubResource("RectangleShape2D_g3ejs")
+metadata/_custom_type_script = "uid://ccmcksqw36ph3"
+
 [node name="MouseMover" type="Node" parent="." unique_id=1109964365 node_paths=PackedStringArray("mouse")]
 script = ExtResource("4_el7wc")
 mouse = NodePath("../SubViewport/Control/Mouse")
+sens = 1.4
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=606648050]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)

@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://df4dm0243c6aa" path="res://Scenes/main.scn" id="8_cmrfp"]
 [ext_resource type="Script" uid="uid://cdjhp6svroq4n" path="res://Scripts/ui/credits.gd" id="9_rrcx7"]
 [ext_resource type="Texture2D" uid="uid://vaexkra2fy3r" path="res://Images/Money.png" id="10_loo7a"]
+[ext_resource type="AudioStream" uid="uid://dd17emh53w3wn" path="res://Music/NightTheme.wav" id="13_fh7cp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ghw46"]
 shader = ExtResource("1_ghw46")
@@ -213,6 +214,7 @@ visibility_rect = Rect2(-366.04782, -50.281708, 857.5139, 695.62305)
 process_material = SubResource("ParticleProcessMaterial_loo7a")
 
 [node name="Panel" type="Panel" parent="." unique_id=749356492]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.22800002
@@ -248,5 +250,11 @@ custom_minimum_size = Vector2(70, 8)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_xim88")
 theme_override_font_sizes/font_size = 12
+text = "Felufudge (Me) - everything else
+"
 autowrap_mode = 3
 script = ExtResource("1_if7li")
+
+[node name="NightTheme" type="AudioStreamPlayer" parent="." unique_id=342483994]
+stream = ExtResource("13_fh7cp")
+autoplay = true

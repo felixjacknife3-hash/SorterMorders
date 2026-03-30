@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bcmwgjvq4j7tp"]
 
-[ext_resource type="Script" uid="uid://cirhc2cc42l6x" path="res://Scripts/misc/Interactable.gd" id="1_8s0t8"]
 [ext_resource type="Script" uid="uid://bg54dbolsoeyk" path="res://Scripts/misc/Box.gd" id="1_mckbn"]
 [ext_resource type="PackedScene" uid="uid://qphptmcqweir" path="res://Models/Box/Box.glb" id="2_42nxc"]
 [ext_resource type="PackedScene" uid="uid://boonuc8sqj4w7" path="res://Scenes/DragBox.tscn" id="2_cmh7u"]
@@ -9,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://djr5ar4wf7mmr" path="res://Models/SellableModels/GolfBall/GolfBall.tscn" id="5_hnn65"]
 [ext_resource type="PackedScene" uid="uid://cvqunfrnuyhvb" path="res://Models/SellableModels/Salad/Salad.tscn" id="6_lkyty"]
 [ext_resource type="PackedScene" uid="uid://bvrcthqandb2c" path="res://Models/SellableModels/Cherry/Cherries.tscn" id="7_hnn65"]
+[ext_resource type="Script" uid="uid://b7oaaungwx32o" path="res://Scripts/boxinter.gd" id="8_hnn65"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_42nxc"]
 size = Vector3(1, 1.1, 1.2)
@@ -26,7 +26,7 @@ spawnPoint = NodePath("SpawnPoint")
 
 [node name="Interactable" type="Area3D" parent="." unique_id=643037805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-script = ExtResource("1_8s0t8")
+script = ExtResource("8_hnn65")
 metadata/_custom_type_script = "uid://cirhc2cc42l6x"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=2027606422]

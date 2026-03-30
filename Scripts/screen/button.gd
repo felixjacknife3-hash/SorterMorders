@@ -5,7 +5,7 @@ class_name ComputerNormalButton
 var colShapeObj: CollisionShape2D = null
 var area: Area2D = null
 
-@export var shape: Shape2D
+@export var shape: RectangleShape2D
 
 func _ready() -> void:
 	pass

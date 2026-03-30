@@ -1,7 +1,7 @@
 extends Area3D
 class_name HurtBox
 
-@export var damage: float = 20
+@export var damage: int = 20
 @export var colShape: CollisionShape3D
 
 var t := 0.0

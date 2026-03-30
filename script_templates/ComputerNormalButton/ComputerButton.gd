@@ -6,7 +6,6 @@ func _ready() -> void:
 	buildColRegion()
 	# functional code here
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _pressed() -> void:
+#called when the button is pressed
+func press() -> void:
 	pass # replace with functional code

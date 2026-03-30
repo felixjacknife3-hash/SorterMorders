@@ -10,7 +10,7 @@ func areaEntered(body) -> void:
 	if not plr: return
 	while currBody:
 		if not currBody.held:
-			plr.money.addMoney(currBody.price)
+			plr.money.addMoney(currBody.price * UpgradeManager.sellMulti)
 			await get_tree().create_timer(0.2).timeout
 			if currBody:
 				currBody.queue_free()

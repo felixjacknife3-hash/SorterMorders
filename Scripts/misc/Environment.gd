@@ -35,8 +35,7 @@ func _process(delta: float) -> void:
 	res.data["time"] = time
 	if dayGoing:
 		time += delta
-	var testTime = fmod(time, cycleLength)
-	if testTime <= dayLength:
+	if time <= dayLength:
 		day = true
 	else:
 		day = false

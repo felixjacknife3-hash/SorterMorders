@@ -28,3 +28,5 @@ func _process(_delta: float) -> void:
 	if health <= 0:
 		die.emit()
 		print("die")
+	if health > maxHealth:
+		health = maxHealth

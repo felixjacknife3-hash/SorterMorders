@@ -7,7 +7,7 @@ var onButton: bool = false
 func getButton() -> ComputerNormalButton:
 	if not button: return
 	var btn = button.get_parent()
-	if not btn is Button: return null
+	if not btn: return null
 	return btn
 
 func areaEntered(_body):

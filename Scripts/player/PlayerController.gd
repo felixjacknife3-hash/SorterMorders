@@ -22,6 +22,8 @@ class_name Player
 
 @export_group("Nodes")
 
+@export var speak: AudioStreamPlayer
+
 @export_subgroup("Variable Nodes")
 @export var money: MoneyComponent
 @export var health: HealthComponent
@@ -45,6 +47,7 @@ func _ready() -> void:
 	var hp = res.loadKey("hp")
 	var maknee = res.loadKey("money")
 	var yrot = res.loadKey("yrot")
+	var hasTutored = res.loadKey("tutor")
 	if pos is Vector3:
 		global_position = pos
 	if hp is int:
@@ -53,8 +56,13 @@ func _ready() -> void:
 		money.money = maknee
 	if yrot is float:
 		rotation.y = yrot
+	if !(hasTutored is bool):
+		await get_tree().create_timer(5).timeout
+		TellInfo.sendPlayerInfo("so, uh just go outside and interact [E] with that box over there", 8)#              
+		speak.play()
 	
 	#endregion
+	
 
 func _physics_process(delta: float) -> void:
 	if environment:

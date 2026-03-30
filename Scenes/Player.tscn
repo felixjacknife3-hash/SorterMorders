@@ -30,6 +30,11 @@
 [ext_resource type="Texture2D" uid="uid://dqba7xbdkmcj7" path="res://Images/PauseText.png" id="26_u7x0b"]
 [ext_resource type="Script" uid="uid://c4v0wr3ceonsx" path="res://Scripts/ui/save.gd" id="27_utwlt"]
 [ext_resource type="Script" uid="uid://cqiw2hcl11pgf" path="res://Scripts/ui/savequit.gd" id="28_kih0c"]
+[ext_resource type="AudioStream" uid="uid://c8crkacpetee0" path="res://i speak2.mp3" id="31_avx33"]
+[ext_resource type="AudioStream" uid="uid://bh7nmo4lkysx6" path="res://i speak3.mp3" id="32_rxg2u"]
+[ext_resource type="Script" uid="uid://lkru1t1c4463" path="res://Scripts/PlayRandSong.gd" id="33_bfbt0"]
+[ext_resource type="AudioStream" uid="uid://dd17emh53w3wn" path="res://Music/NightTheme.wav" id="34_wosd6"]
+[ext_resource type="AudioStream" uid="uid://3wp06sw2c8us" path="res://Music/gggg.wav" id="35_hkrn1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhfnw"]
 
@@ -81,7 +86,7 @@ corner_detail = 4
 radius = 0.6
 height = 2.2
 
-[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("money", "health", "cam", "light") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=1751044688 node_paths=PackedStringArray("speak", "money", "health", "cam", "light") groups=["player"]]
 collision_mask = 3
 script = ExtResource("1_xhfnw")
 sprintSpeed = 6.0
@@ -89,6 +94,7 @@ baseSpeed = 4.0
 jumpVel = 3.5
 bHopResetTime = 0.3
 pushStrength = 0.8
+speak = NodePath("AudioStreamPlayer")
 money = NodePath("MoneyComponent")
 health = NodePath("HealthComponent")
 cam = NodePath("Head/Cam")
@@ -134,18 +140,18 @@ script = ExtResource("2_kpjcp")
 [node name="DragAt" type="Marker3D" parent="Head" unique_id=190992176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3)
 
-[node name="InteractCast" type="RayCast3D" parent="Head" unique_id=308453791]
+[node name="InteractCast" type="RayCast3D" parent="Head" unique_id=308453791 node_paths=PackedStringArray("speak")]
 target_position = Vector3(0, 0, -4)
 collide_with_areas = true
 collide_with_bodies = false
 script = ExtResource("4_52ee3")
+speak = NodePath("../../AudioStreamPlayer2")
 
 [node name="DragNode" type="Node" parent="." unique_id=414226753 node_paths=PackedStringArray("ray", "dragTo")]
 script = ExtResource("3_gntrk")
 ray = NodePath("../Head/DragDetector")
 dragTo = NodePath("../Head/DragAt")
 strength = 400.0
-damping = 4.0
 shapeHeld = SubResource("SphereShape3D_gntrk")
 shapeUnheld = SubResource("SphereShape3D_dewec")
 
@@ -160,7 +166,7 @@ metadata/_custom_type_script = "uid://d3m20iai2hh4e"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1949866035]
 script = ExtResource("8_i2e8t")
-maxHealth = 150
+maxHealth = 2500
 metadata/_custom_type_script = "uid://di4h3ferw3gly"
 
 [node name="BuildPosition" type="Node3D" parent="." unique_id=155911006 node_paths=PackedStringArray("cam", "money")]
@@ -345,6 +351,7 @@ vertical_alignment = 1
 script = ExtResource("22_i2e8t")
 
 [node name="DieMenu" type="Control" parent="CanvasLayer/Control" unique_id=1372157102]
+process_mode = 3
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -519,6 +526,26 @@ metadata/_custom_type_script = "uid://cvhmp2otxf6gd"
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="HitBox" unique_id=596356873]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_i2e8t")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1616764948]
+stream = ExtResource("31_avx33")
+volume_db = -4.0
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1160678729]
+stream = ExtResource("32_rxg2u")
+volume_db = -4.0
+
+[node name="Node" type="Node" parent="." unique_id=1813824036 node_paths=PackedStringArray("audio")]
+script = ExtResource("33_bfbt0")
+audio = [NodePath("NightTheme"), NodePath("Gggg")]
+
+[node name="NightTheme" type="AudioStreamPlayer" parent="Node" unique_id=94275526]
+stream = ExtResource("34_wosd6")
+volume_db = -6.0
+
+[node name="Gggg" type="AudioStreamPlayer" parent="Node" unique_id=201651681]
+stream = ExtResource("35_hkrn1")
+volume_db = -6.0
 
 [connection signal="dragging" from="Head/DragDetector" to="DragNode" method="drag"]
 [connection signal="endDragging" from="Head/DragDetector" to="DragNode" method="_stopDrag"]
